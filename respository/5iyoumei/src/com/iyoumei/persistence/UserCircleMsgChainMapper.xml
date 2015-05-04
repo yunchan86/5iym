@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuwaikeji.luyou.persistence.UserCircleMsgChainMapper">
+	<resultMap type="UserCircleMsgChainDomain" id="chainDomain">
+		<id column="reply_id" property="replyId" />
+		<id column="message_id" property="messageId" />
+		<result column="message_source" property="sourceUserId" />
+		<result column="sourceUserName" property="sourceUserName" />
+		<result column="sourceUserIdIconUrl" property="sourceUserIdIconUrl" />
+		<result column="message_reply" property="replyUserId" />
+		<result column="replyUserName" property="replyUserName" />
+		<result column="replyUserIdIconUrl" property="replyUserIdIconUrl" />
+		<result column="reply_time" property="replyTime" />
+		<result column="reply_content" property="replyContent" />
+		<result column="reply_type" property="replyType" />
+		<result column="sourceUserCarBrandIcon" property="sourceUserCarBrandIcon" />
+		<result column="replyUserCarBrandIcon" property="replyUserCarBrandIcon" />
+	</resultMap>
+	<!-- 新增图片 -->
+	<insert id="add">
+		INSERT INTO user_circle_msg_chain
+		(reply_id,message_id,message_source,message_reply,reply_time,reply_content,reply_type)
+		VALUES
+		(#{replyId},#{messageId},#{sourceUserId},#{replyUserId},now(),#{replyContent},#{replyType})
+	</insert>
+	<!-- 消息回复/赞列表 -->
+	<select id="list" resultMap="chainDomain">
+		SELECT ucmc.reply_id,ucmc.message_id,
+		ucmc.message_source,uis.name AS
+		sourceUserName,uis.user_icon AS
+		sourceUserIdIconUrl,
+		ucmc.message_reply,uir.name AS replyUserName,uir.user_icon AS
+		replyUserIdIconUrl,
+		ucmc.reply_time,reply_content,ucmc.reply_type,bs.brand_icon AS sourceUserCarBrandIcon,br.brand_icon AS
+		replyUserCarBrandIcon
+		FROM user_circle_msg_chain ucmc
+		LEFT JOIN user_info uis ON
+		uis.user_id=ucmc.message_source
+		LEFT JOIN
+		user_cars ucs ON uis.user_id=ucs.user_id AND ucs.current=1
+		LEFT JOIN brand bs
+		ON bs.brand_id=ucs.brand_id
+		LEFT JOIN
+		user_info uir ON uir.user_id=ucmc.message_reply
+		LEFT JOIN user_cars ucr ON
+		uir.user_id=ucr.user_id AND ucr.current=1
+		LEFT JOIN brand br ON br.brand_id=ucr.brand_id
+		WHERE
+		ucmc.message_id=#{msgId}
+		and reply_type=#{replyType}
+		ORDER BY
+		ucmc.reply_time DESC
+		<if test="size>-1">
+			LIMIT #{size}
+		</if>
+	</select>
+	<!-- 删除评论 -->
+	<delete id="delete">
+		delete from user_circle_msg_chain where reply_id=#{replyId}
+	</delete>
+	<!-- 删除消息的所有评论 -->
+	<delete id="deleteMsg">
+		delete from user_circle_msg_chain where message_id=#{msgId}
+	</delete>
+	<!-- 取消赞 -->
+	<delete id="cancalLike">
+		delete from user_circle_msg_chain where message_id=#{msgId} and message_reply=#{userId} and
+		reply_type=0
+	</delete>
+	<!-- 获取单条数据 -->
+	<select id="get" resultMap="chainDomain">
+		SELECT ucmc.reply_id,ucmc.message_id,
+		ucmc.message_source,uis.name AS
+		sourceUserName,uis.user_icon AS sourceUserIdIconUrl,
+		ucmc.message_reply,uir.name AS replyUserName,uir.user_icon AS
+		replyUserIdIconUrl,
+		ucmc.reply_time,reply_content,ucmc.reply_type
+		FROM user_circle_msg_chain ucmc
+		LEFT JOIN user_info uis
+		ON uis.user_id=ucmc.message_source
+		LEFT JOIN user_info uir ON uir.user_id=ucmc.message_reply
+		WHERE
+		ucmc.reply_id=#{replyId} and reply_type=#{replyType}
+
+	</select>
+	<!-- 获取单条数据 -->
+	<select id="isLiked" resultType="_int">
+		SELECT count(*)
+		FROM user_circle_msg_chain WHERE
+		message_id=#{msgId} and
+		message_reply=#{userId} and reply_type=0
+	</select>
+
+
+</mapper>

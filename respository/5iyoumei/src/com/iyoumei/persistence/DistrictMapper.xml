@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuwaikeji.luyou.persistence.DistrictMapper">
+	<cache flushInterval="600000"></cache>
+	<!-- 获取省份列表 -->
+	<select id="getProvinceList" resultType="com.wuwaikeji.luyou.bean.ProvinceBean">
+		SELECT province_code as provinceCode,province_name as provinceName
+		,province_short_name as shortName,wz_query_enable as wzQueryEnable FROM
+		province
+	</select>
+	<!-- 获取城市列表 -->
+	<select id="getCityList" resultType="com.wuwaikeji.luyou.bean.CityBean">
+		select city_code as cityCode,city_name as cityName,third_party_code as
+		wzQueryCode,car_head as carHead, engineno,classno,registno,wz_query_enable as wzQueryEnable from city where
+		left(city_code,2)=#{provinceCode}
+	</select>
+	<!-- 获取城区列表 -->
+	<select id="getDistrictList" resultType="com.wuwaikeji.luyou.bean.DistrictBean">
+		select district_code as districtCode,district_name as districtName
+		from
+		district where left(district_code,4)=#{cityCode}
+	</select>
+</mapper>

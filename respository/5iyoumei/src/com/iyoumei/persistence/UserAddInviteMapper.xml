@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuwaikeji.luyou.persistence.UserAddInviteMapper" >
+  <resultMap id="userAddInviteDomain" type="UserAddInviteDomain" >
+    <id column="invite_id" property="inviteId" jdbcType="BIGINT"/>
+    <result column="inviting_user_id" property="invitingUserId" jdbcType="BIGINT" />
+    <result column="invited_user_id" property="invitedUserId" jdbcType="BIGINT" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="link_time" property="linkTime" jdbcType="TIMESTAMP" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Invite_Column_Map">
+      invite_id,inviting_user_id,invited_user_id,source,status,link_time,apply_time,message
+  </sql>
+  <select id="selectByUserId" resultMap="userAddInviteDomain">
+      select <include refid="Invite_Column_Map"/>
+      from user_add_invite
+      where inviting_user_id=#{invitingUserId} and invited_user_id=#{invitedUserId}
+  </select>
+  <select id="selectById"  resultMap="userAddInviteDomain">
+      select <include refid="Invite_Column_Map"/>
+      from user_add_invite
+      where invite_id=#{inviteId}
+  </select>
+  <insert id="insert" parameterType="UserAddInviteDomain" >
+    insert into user_add_invite (invite_id,inviting_user_id, invited_user_id, source, 
+      status, link_time, apply_time, 
+      message)
+    values (uuid_short(),#{invitingUserId,jdbcType=BIGINT}, #{invitedUserId,jdbcType=BIGINT}, #{source,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{linkTime,jdbcType=TIMESTAMP}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{message,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="UserAddInviteDomain" >
+    insert into user_add_invite
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        invite_id,
+      <if test="invitingUserId != null" >
+        inviting_user_id,
+      </if>
+      <if test="invitedUserId != null" >
+        invited_user_id,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="linkTime != null" >
+        link_time,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        uuid_short(),
+      <if test="invitingUserId != null" >
+        #{invitingUserId,jdbcType=BIGINT},
+      </if>
+      <if test="invitedUserId != null" >
+        #{invitedUserId,jdbcType=BIGINT},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="linkTime != null" >
+        #{linkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

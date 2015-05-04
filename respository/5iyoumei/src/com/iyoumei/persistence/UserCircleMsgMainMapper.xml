@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuwaikeji.luyou.persistence.UserCircleMsgMainMapper">
+	<resultMap type="UserCircleMsgMainDomain" id="mainDomain">
+		<id column="message_id" property="messageId" />
+		<result column="user_id" property="userId" />
+		<result column="pub_time" property="pubTime" />
+		<result column="content" property="content" />
+		<result column="prise_times" property="priseTiems" />
+		<result column="nick_name" property="userName" />
+		<result column="user_icon" property="userIcon" />
+	</resultMap>
+	<!-- 发布消息 -->
+	<insert id="add">
+		INSERT INTO user_circle_msg_main
+		(message_id,user_id,pub_time,content,prise_times)
+		VALUES
+		(#{messageId},#{userId},now(),#{content},#{priseTiems})
+	</insert>
+	<!-- 点赞 -->
+	<update id="like">
+		update user_circle_msg_main set prise_times=prise_times+1 where message_id=#{msgId}
+	</update>
+	<!-- 取消赞 -->
+	<update id="cancleLike">
+		update user_circle_msg_main set prise_times=prise_times-1 where message_id=#{msgId}
+	</update>
+	<!-- 删除消息 -->
+	<delete id="remove">
+		delete from user_circle_msg_main where message_id=#{msgId}
+	</delete>
+	<!-- 消息列表（自己及朋友发布的消息） -->
+	<select id="list" resultMap="mainDomain">
+		SELECT ui.nick_name,ui.user_icon,ucmm.* FROM user_circle_msg_main ucmm
+		INNER JOIN user_relations ur ON
+		ucmm.user_id=ur.user_id2 AND
+		ur.friend_circle2=1 and ur.is_blacklist=0 
+		inner join user_info ui on ucmm.user_id=ui.user_id 
+		WHERE ur.user_id1=#{userId}
+		<choose>
+			<when test="'p'==orientation">
+				<if test="baseTime!=null"> AND pub_time&lt;#{baseTime} </if>
+				ORDER BY pub_time desc
+			</when>
+			<otherwise>
+				<if test="baseTime!=null"> AND pub_time>#{baseTime} </if>
+				ORDER BY pub_time
+			</otherwise>
+		</choose>
+		LIMIT #{size}
+	</select>
+	<!-- 获取某人（包含自己）的朋友圈消息列表 -->
+	<select id="userMsglist" resultMap="mainDomain">
+		SELECT ui.nick_name,ui.user_icon,ucmm.* FROM user_circle_msg_main ucmm
+		inner join user_info ui on ucmm.user_id=ui.user_id 
+		WHERE ucmm.user_id=#{userId}
+		<choose>
+			<when test="'p'==orientation">
+				<if test="baseTime!=null"> AND pub_time&lt;#{baseTime} </if>
+				ORDER BY pub_time desc
+			</when>
+			<otherwise>
+				<if test="baseTime!=null"> AND pub_time>#{baseTime} </if>
+				ORDER BY pub_time
+			</otherwise>
+		</choose>
+		LIMIT #{size}
+	</select>
+	<!-- 获取某条消息 -->
+	<select id="get" resultMap="mainDomain">
+		SELECT ucmm.* FROM user_circle_msg_main ucmm
+		WHERE ucmm.message_id=#{msgId}
+	</select>
+</mapper>

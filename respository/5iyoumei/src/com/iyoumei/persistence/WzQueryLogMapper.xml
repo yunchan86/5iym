@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuwaikeji.luyou.persistence.WzQueryLogMapper">
+	<!-- 保存违章查询记录 -->
+	<insert id="insert">
+		insert into wz_query_log
+		(uuid,user_id,hphm,classno,engineno,registno,city_id,insert_time)
+		values(#{uuid},#{userId},#{hphm},#{classno},#{engineno},#{registno},#{cityId},now())
+	</insert>
+</mapper>

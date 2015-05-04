@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuwaikeji.luyou.persistence.EvaluateHistoryMapper">
+    <!--
+	<resultMap id="userEvaluateHistory" type="UserEvaluateHistoryDomain" >
+	    <id column="user_id" property="userId"  jdbcType="BIGINT" />
+	    <result column="eva_user_id" property="evaUserId" jdbcType="BIGINT" />
+	    <result column="eva_type" property="evaType"/>
+	    <id column="insert_time" property="insertTime"/>
+	</resultMap>
+	-->
+	<insert id="insert" parameterType="UserEvaluateHistoryDomain">
+	    insert into user_evaluate_history(user_id,eva_type,eva_user_id,insert_time)
+	    values(#{userId},#{evaType},#{evaUserId},now())
+	</insert>
+</mapper>

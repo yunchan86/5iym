@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuwaikeji.luyou.persistence.CoordinateMapper">
+	<!-- 插入当前位置 -->
+	<insert id="insertUserPosition">
+		INSERT INTO luyou.user_position 
+		(user_id, 
+		x_pos, 
+		y_pos, 
+		update_time
+		)
+		VALUES
+		(#{userId}, 
+		#{xPos}, 
+		#{yPos}, 
+		NOW()
+		);
+	</insert>
+	<!-- 插入位置历史 -->
+	<insert id="insertUserPositionHistory">
+		INSERT INTO luyou.user_position_log 
+		(user_id, 
+		x_pos, 
+		y_pos, 
+		report_time
+		)
+		VALUES
+		(#{userId}, 
+		#{xPos}, 
+		#{yPos}, 
+		NOW()
+		);
+	</insert>
+	<!--查询 -->
+	<select id="checkUserPosition" resultType="_int">
+		select if(isnull(count(*)),0,count(*)) as c from user_position where user_id=#{userId};
+	</select>
+
+	<!-- 更新 用户的当前位置-->
+	<update id="updateUserPosition">
+		UPDATE user_position
+		SET x_pos=#{xPos},
+		y_pos=#{yPos},
+		update_time=now()
+		WHERE user_id=#{userId}
+	</update>
+</mapper>

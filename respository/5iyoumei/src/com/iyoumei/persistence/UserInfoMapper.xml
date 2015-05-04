@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuwaikeji.luyou.persistence.UserInfoMapper">
+	<resultMap type="UserInfoDomain" id="userInfo">
+		<result column="user_id" property="userId" />
+		<result column="nick_name" property="nickname" />
+		<result column="mobile_number" property="mobileNumber" />
+		<result column="mobile_verify_status" property="mobileVerifyStatus" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="gender" property="gender" />
+		<result column="birthday" property="birthday" />
+		<result column="city_code" property="cityCode" />
+		<result column="district_code" property="districtCode" />
+		<result column="signature" property="signature" />
+		<result column="user_icon" property="userIcon" />
+		<result column="approve_type" property="approveType" />
+		<result column="show_in_map" property="showInMap" />
+		<result column="pic_view_limit" property="picViewLimit" />
+		<result column="recommend_id" property="recommendId" />
+		<result column="reg_time" property="regTime" />
+		<result column="new_message_switch" property="newMessageSwitch" />
+		<result column="stranger_message_switch" property="strangerMessageSwitch" />
+		<result column="get_driving_licence_time" property="getDrivingLicenceTime" />
+		<result column="driving_licencs_url" property="drivingLicencsUrl" />
+		<result column="identity_card_front_url" property="identityCardFrontUrl" />
+		<result column="identity_card_back_url" property="identityCardBackUrl" />
+		<result column="user_type" property="userType" />
+		<result column="provider_id" property="providerId" />
+		<result column="status" property="status" />
+		<result column="praise_times" property="praiseTimes" />
+		<result column="stamp_times" property="stampTimes" />
+		<result column="city_name" property="cityName" />
+		<result column="district_name" property="districtName" />
+	</resultMap>
+	<!-- 验证手机号是否已经注册 -->
+	<select id="isMobileNumberRegsiter" resultType="_int">
+		select IFNULL(COUNT(*),0) from user_info where
+		mobile_number=#{mobileNumber}
+	</select>
+	<!-- 根据手机号查询用户信息 -->
+	<select id="selectByMobileNumber" resultMap="userInfo">
+		select ui.*,ifnull(ue.praise_times,0) as
+		praise_times,ifnull(ue.stamp_times,0) as stamp_times,c.city_name,d.district_name
+		from user_info ui left join user_evaluate ue on ui.user_id=ue.user_id
+		left join city c on ui.city_code=c.city_code
+		left join district d on ui.district_code=d.district_code 
+		where ui.mobile_number=#{mobileNumber}
+	</select>
+	<!-- 根据id查询用户 -->
+	<select id="selectByUserId" resultMap="userInfo">
+		select ui.*,ifnull(ue.praise_times,0) as praise_times,ifnull(ue.stamp_times,0) as stamp_times
+		,c.city_name,d.district_name
+		from user_info ui left join user_evaluate ue on ui.user_id=ue.user_id 
+		left join city c on ui.city_code=c.city_code
+		left join district d on ui.district_code=d.district_code
+		where ui.user_id=#{userId}
+	</select>
+	<!-- 新增用户 -->
+	<insert id="insert">
+		insert into user_info
+		(user_id,nick_name,mobile_number,mobile_verify_status,password,name,gender,birthday,city_code,district_code,signature,
+		user_icon,approve_type,show_in_map,pic_view_limit,recommend_id,reg_time,new_message_switch,stranger_message_switch,
+		get_driving_licence_time,driving_licencs_url,identity_card_front_url,identity_card_back_url,user_type,provider_id,status)
+		values(#{userId},#{nickname},#{mobileNumber},#{mobileVerifyStatus},#{password},#{name},#{gender},#{birthday},#{cityCode},#{districtCode},#{signature},
+		#{userIcon},#{approveType},#{showInMap},#{picViewLimit},#{recommendId},now(),#{newMessageSwitch},#{strangerMessageSwitch},
+		#{getDrivingLicenceTime},#{drivingLicencsUrl},#{identityCardFrontUrl},#{identityCardBackUrl},#{userType},#{providerId},#{status})
+	</insert>
+	<!-- 更新 -->
+	<update id="update">
+		update user_info set
+		nick_name=#{nickname},mobile_number=#{mobileNumber},mobile_verify_status=#{mobileVerifyStatus},password=#{password},name=#{name},gender=#{gender},birthday=#{birthday},city_code=#{cityCode},district_code=#{districtCode},signature=#{signature},
+		user_icon=#{userIcon},approve_type=#{approveType},show_in_map=#{showInMap},pic_view_limit=#{picViewLimit},recommend_id=#{recommendId},new_message_switch=#{newMessageSwitch},stranger_message_switch=#{strangerMessageSwitch},
+		get_driving_licence_time=#{getDrivingLicenceTime},driving_licencs_url=#{drivingLicencsUrl},identity_card_front_url=#{identityCardFrontUrl},identity_card_back_url=#{identityCardBackUrl},user_type=#{userType},provider_id=#{providerId},status=#{status}
+		where user_id=#{userId}
+	</update>
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuwaikeji.luyou.persistence.EvaluateMapper" >
+	<resultMap id="userEvaluate" type="UserEvaluateDomain" >
+	    <id column="user_id" property="userId" jdbcType="BIGINT" />
+	    <result column="praise_times" property="praiseTimes"/>
+	    <result column="stamp_times" property="stampTimes"/>
+	</resultMap>
+	<sql id="USER_EVALUATE_COLUMN">
+		user_id,praise_times,stamp_times
+	</sql>
+	<select id="get" resultMap="userEvaluate">
+		select <include refid="USER_EVALUATE_COLUMN"/>
+		from user_evaluate where user_id=#{userId}
+	</select>
+ 	<!-- 插入用户评价记录 -->
+	<insert id="insert">
+		INSERT INTO luyou.user_evaluate 
+		(user_id, 
+		praise_times, 
+		stamp_times
+		)
+		VALUES
+		(#{userId}, 
+		0, 
+		0
+		);
+	</insert>
+	<!--检查当前用户是否已经存在评价记录 -->
+	<select id="checkUserEvaluate" resultType="_int">
+		select if(isnull(count(*)),0,count(*)) as c from user_evaluate where user_id=#{userId};
+	</select>
+	<!--更新用户赞数 -->
+	<update id="updatePraiseTimes">
+		UPDATE user_evaluate
+		SET praise_times=praise_times+1
+		WHERE user_id=#{userId}
+	</update>
+	<!-- 更新 用户的当前位置-->
+	<update id="updateStampTimes">
+		UPDATE user_evaluate
+		SET stamp_times=stamp_times+1
+		WHERE user_id=#{userId}
+	</update>	
+</mapper>

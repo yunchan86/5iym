@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuwaikeji.luyou.persistence.UserFriendInfoMapper">
+	<resultMap type="UserFriendDomain" id="userFriend">
+		<association property="userInfo" javaType="UserInfoDomain" resultMap="userInfo" />
+		<association property="userRelation" javaType="UserRelationsDomain" resultMap="userRelations" />
+		<association property="userInfoHX" javaType="UserInfoHXDomain" resultMap="userInfoHX" />
+		<association property="userPosition" javaType="UserPositionDomain" resultMap="userPosition"/>
+	</resultMap>
+	<resultMap type="UserInfoDomain" id="userInfo">
+		<result column="user_id" property="userId" />
+		<result column="nick_name" property="nickname" />
+		<result column="mobile_number" property="mobileNumber" />
+		<result column="mobile_verify_status" property="mobileVerifyStatus" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="gender" property="gender" />
+		<result column="birthday" property="birthday" />
+		<result column="city_code" property="cityCode" />
+		<result column="district_code" property="districtCode" />
+		<result column="signature" property="signature" />
+		<result column="user_icon" property="userIcon" />
+		<result column="approve_type" property="approveType" />
+		<result column="show_in_map" property="showInMap" />
+		<result column="pic_view_limit" property="picViewLimit" />
+		<result column="recommend_id" property="recommendId" />
+		<result column="reg_time" property="regTime" />
+		<result column="new_message_switch" property="newMessageSwitch" />
+		<result column="stranger_message_switch" property="strangerMessageSwitch" />
+		<result column="get_driving_licence_time" property="getDrivingLicenceTime" />
+		<result column="driving_licencs_url" property="drivingLicencsUrl" />
+		<result column="identity_card_front_url" property="identityCardFrontUrl" />
+		<result column="identity_card_back_url" property="identityCardBackUrl" />
+		<result column="user_type" property="userType" />
+		<result column="provider_id" property="providerId" />
+		<result column="status" property="status" />
+		<result column="praise_times" property="praiseTimes" />
+		<result column="stamp_times" property="stampTimes" />
+	</resultMap>
+	<resultMap id="userRelations" type="UserRelationsDomain" >
+	    <id column="user_id1" property="userId1" jdbcType="BIGINT" />
+	    <id column="user_id2" property="userId2" jdbcType="BIGINT" />
+	    <result column="is_blacklist" property="isBlacklist" jdbcType="BIT" />
+	    <result column="tag" property="tag" jdbcType="VARCHAR" />
+	    <result column="label" property="label" jdbcType="VARCHAR" />
+	    <result column="source" property="source" jdbcType="CHAR" />
+	    <result column="link_time" property="linkTime" jdbcType="TIMESTAMP" />
+	    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+	    <result column="regular_friend" property="regularFriend"/>
+	    <result column="friend_circle1" property="friendCircle1"/>
+	    <result column="friend_circle2" property="friendCircle2"/>
+	    <result column="friend_map" property="friendMap"/>
+	 </resultMap>
+	 <resultMap id="userInfoHX" type="UserInfoHXDomain" >
+	    <id column="user_id" property="userId" jdbcType="BIGINT" />
+	    <result column="password" property="password" jdbcType="VARCHAR" />
+	    <result column="hx_uuid" property="hxUUID" jdbcType="VARCHAR" />
+	    <result column="hx_username" property="hxUsername" jdbcType="VARCHAR" />
+	 </resultMap>
+	 <resultMap id="userPosition" type="UserPositionDomain" >
+	    <id column="user_id" property="userId" jdbcType="BIGINT" />
+	    <result column="x_pos" property="xpos" jdbcType="FLOAT" />
+	    <result column="y_pos" property="ypos" jdbcType="FLOAT" />
+	 </resultMap>
+
+	<sql id="user_info_column">
+		ui.user_id,ui.nick_name,ui.mobile_number,ui.mobile_verify_status,ui.password,
+		ui.name,ui.gender,ui.birthday,ui.city_code,ui.district_code,
+		ui.signature,ui.user_icon,ui.approve_type,ui.show_in_map,ui.pic_view_limit,
+		ui.recommend_id,ui.reg_time,ui.new_message_switch,ui.stranger_message_switch,ui.get_driving_licence_time,
+		ui.driving_licencs_url,ui.identity_card_front_url,ui.identity_card_back_url,ui.user_type,ui.provider_id,
+		ui.status
+	</sql>
+	<sql id="user_relations_column">
+		ur.user_id1, ur.user_id2, ifnull(ur.is_blacklist,1) as is_blacklist , ur.tag, ur.label,
+		ur.source, ur.link_time, ur.apply_time,regular_friend,friend_circle1,
+		friend_circle2,friend_map
+	</sql>
+	<sql id="user_info_hx_column">
+		uih.user_id,uih.password,uih.hx_uuid,uih.hx_username
+	</sql>
+	<sql id="user_position_column">
+		up.user_id,ifnull(up.x_pos,0) x_pos,ifnull(up.y_pos,0) y_pos
+	</sql>
+	<select id="getUserFriendList" resultMap="userFriend">
+		select
+		<include refid="user_info_column" />
+		,
+		<include refid="user_relations_column" />
+		,
+		<include refid="user_info_hx_column" />
+			,
+			<include refid="user_position_column"/>
+		from user_info ui,user_relations ur,user_info_hx uih
+		LEFT JOIN user_position up ON uih.user_id=up.user_id
+		WHERE ui.user_id=ur.user_id2 AND ui.user_id=uih.user_id AND ur.user_id2=uih.user_id AND ui.user_id != #{userId}
+		AND ur.user_id1=#{userId}
+	</select>
+
+	<select id="getUserFriendInfo" resultMap="userFriend">
+		select
+		<include refid="user_info_column" />
+		,
+		<include refid="user_relations_column" />
+		,
+		<include refid="user_info_hx_column" />
+			,
+			<include refid="user_position_column"/>
+		from user_info ui,user_relations ur,user_info_hx uih
+		LEFT JOIN user_position up ON uih.user_id=up.user_id
+		WHERE ui.user_id=ur.user_id2 AND ui.user_id=uih.user_id AND ur.user_id2=uih.user_id AND ui.user_id != #{userId}
+		AND ur.user_id1=#{userId}
+	</select>
+
+	<select id="getDailyUserFriendList" resultMap="userFriend">
+		select
+		<include refid="user_info_column" />
+		,
+		<include refid="user_relations_column" />
+		,
+		<include refid="user_info_hx_column" />
+		from user_info ui,user_relations ur,user_info_hx uih
+		where ui.user_id=ur.user_id2 AND ui.user_id=uih.user_id AND ur.user_id2=uih.user_id AND ui.user_id != #{userId}
+		AND ur.user_id1=#{userId} and regular_friend=1
+	</select>
+</mapper>

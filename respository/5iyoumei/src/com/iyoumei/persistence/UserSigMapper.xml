@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuwaikeji.luyou.persistence.UserSigMapper">
+
+	<!-- 插入 -->
+	<insert id="insert">
+		insert into user_sig
+		(id,user_id,sig,insert_time, uuid,terminal_type,status,baidu_uuid,device_token)
+		values(#{id},#{user_id},#{sig},#{insert_time},
+		#{uuid},#{terminal_type},#{status},#{baidu_uuid},#{device_token})
+	</insert>
+	<!--查询 -->
+	<select id="select" resultType="UserSigDomain">
+		SELECT us.uuid,us.user_id,us.terminal_type,us.status,us.sig,us.insert_time,us.id,
+		us.device_token,us.baidu_uuid,uix.password as hxPwd
+		FROM user_sig us,user_info_hx uix
+		where us.user_id=uix.user_id and us.uuid=#{uuid} and us.user_id=#{userId} and us.terminal_type=#{teminalType} 
+		order by us.insert_time desc limit 1;
+	</select>
+
+	<!-- 更新 -->
+	<update id="update">
+		update user_sig set user_id=#{user_id},
+		sig=#{sig},
+		status=#{status},baidu_uuid=#{baidu_uuid},device_token=#{device_token}
+		where uuid=#{uuid} and
+		id=#{id}
+	</update>
+
+	<!-- 关闭掉同一个用户的其它登录信息。用户登录后，将该用户的历史登录记录置为“登录过期”，用于防治用户多个设备同时登录 -->
+	<update id="forbiddenOtherLoginInfo">
+		update user_sig set status=0 where user_id=#{userId} and
+		uuid!=#{currentLoginUuid}
+	</update>
+</mapper>

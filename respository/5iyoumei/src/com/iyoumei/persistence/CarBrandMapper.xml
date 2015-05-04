@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuwaikeji.luyou.persistence.CarBrandMapper" >
+	<resultMap id="userEvaluate" type="CarBrandDomain" >
+	    <result column="id" property="carId" />
+		<result column="user_id" property="userId" />
+		<result column="brand_id" property="brandId" />
+		<result column="motorcyde_type_id" property="motorcydeTypeId" />
+		<result column="color_id" property="colorId" />
+		<result column="license_number" property="licenseNumber" />
+		<result column="car_img_id" property="carImgId" />
+		<result column="current" property="current" />
+		<result column="brand_name" property="brandName" />
+		<result column="brand_intro" property="brandIntro" />
+		<result column="brand_icon" property="brandIcon" />
+		<result column="brand_tetter" property="brandLetter" />
+	</resultMap>
+
+	<sql id="BASIC_COLUMN">
+	    car.id,car.user_id,car.brand_id,car.motorcyde_type_id,car.color_id,car.car_img_id,car.current,
+	    bd.brand_name,bd.brand_intro,bd.brand_icon,bd.brand_tetter
+	</sql>
+	<select id="getList">
+	    select <include refid="BASIC_COLUMN"/> from user_cars car left join brand bd on car.brand_id=bd.brand_id
+	    where car.user_id=#{userId}
+	</select>
+</mapper>	

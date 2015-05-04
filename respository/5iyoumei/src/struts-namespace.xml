@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="luyou_friend" extends="luyou" namespace="/friend">
+		<action name="add" class="userRelationsAction">
+
+			<interceptor-ref name="loginInterceptorStack" />
+			<!-- -->
+		</action>
+		<action name="list" class="userRelationsAction" method="getInfoList">
+			<!-- -->
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<action name="info" class="userRelationsAction" method="getInfo">
+			<!-- -->
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<action name="del" class="userRelationsAction" method="del">
+			<interceptor-ref name="loginInterceptorStack" />
+			<!-- -->
+		</action>
+		<action name="tag" class="userRelationsAction" method="updateTag">
+			<interceptor-ref name="loginInterceptorStack" />
+			<!-- -->
+		</action>
+		<action name="label" class="userRelationsAction" method="updateLabel">
+			<interceptor-ref name="loginInterceptorStack" />
+			<!-- -->
+		</action>
+		<action name="blacklist" class="userRelationsAction" method="blacklist">
+			<!-- -->
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<action name="auth" class="userRelationsAction" method="auth">
+			<!-- -->
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<action name="dailylist" class="userRelationsAction" method="getDailyList">
+			<!-- -->
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<action name="maplist" class="userRelationsAction" method="getMapList">
+			<!-- -->
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<action name="map" class="userRelationsAction" method="getInfoMap">
+			<!-- -->
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<action name="stranger" class="userRelationsAction" method="getStrangerInfo">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 两个用户是否朋友关系 -->
+		<action name="isFriend" class="userRelationsAction" method="isFriend">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+	</package>
+	<package name="luyou_group" extends="luyou" namespace="/group">
+		<action name="add" class="userGroupAction">
+			<interceptor-ref name="loginInterceptorStack" />
+			<!-- -->
+		</action>
+		<action name="list" class="userGroupAction" method="list">
+			<!-- <interceptor-ref name="loginInterceptorStack" /> -->
+		</action>
+		<action name="del" class="userGroupAction" method="del">
+			<!-- <interceptor-ref name="loginInterceptorStack" /> -->
+		</action>
+		<action name="addMember" class="userGroupAction" method="addMember">
+			<!-- -->
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<action name="addMembers" class="userGroupAction" method="addMembers">
+			<!-- -->
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<action name="delMember" class="userGroupAction" method="delMember">
+			<!-- -->
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+	</package>
+	<package name="luyou_chat" extends="luyou" namespace="/chat">
+		<action name="sayhi" class="chatAction">
+			<interceptor-ref name="loginInterceptorStack" />
+			<!-- -->
+		</action>
+		<action name="message" class="chatAction" method="message">
+			<interceptor-ref name="defaultStack" />
+			<!-- -->
+		</action>
+	</package>
+	<package name="frend_tribe" extends="luyou" namespace="/tribe">
+		<!-- 朋友圈发布消息 -->
+		<action name="publish" class="friendTribeAction" method="publish">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 保存朋友圈图片 -->
+		<action name="saveIcon" class="friendTribeAction" method="saveIcon">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 回复消息 -->
+		<action name="reply" class="friendTribeAction" method="reply">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 点赞 -->
+		<action name="like" class="friendTribeAction" method="like">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 取消赞 -->
+		<action name="cancleLike" class="friendTribeAction" method="cancleLike">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 删除消息 -->
+		<action name="delMsg" class="friendTribeAction" method="delMsg">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 删除评论 -->
+		<action name="delReply" class="friendTribeAction" method="delReply">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 消息列表（自己及朋友发布的消息） -->
+		<action name="getMsgList" class="friendTribeAction" method="getMsgList">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 获取某人（包含自己）的朋友圈消息列表  -->
+		<action name="getUserMsgList" class="friendTribeAction" method="getUserMsgList">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 获取单条消息 -->
+		<action name="getMsg" class="friendTribeAction" method="getMsg">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+
+	</package>
+	<package name="luyou_invite" extends="luyou" namespace="/invite">
+		<!-- 邀请好友 -->
+		<action name="friend" class="inviteAction" method="invite">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 同意邀请好友 -->
+		<action name="accept" class="inviteAction" method="accept">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+		<!-- 拒绝邀请好友 -->
+		<action name="refuse" class="inviteAction" method="refuse">
+			<interceptor-ref name="loginInterceptorStack" />
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gearman-client>
+    <servers>
+        <server>
+            <host>127.0.0.1</host>
+            <port>4730</port>
+        </server>
+    </servers>
+</gearman-client>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuwaikeji.luyou.persistence.UserCarsMapper">
+	<resultMap type="UserCarsDomain" id="carBean">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="brand_id" property="brandId" />
+		<result column="motorcyde_type_id" property="motorcydeTypeId" />
+		<result column="color_id" property="colorId" />
+		<result column="license_number" property="licenseNumber" />
+		<result column="car_img_id" property="carImgId" />
+		<result column="current" property="current" />
+	</resultMap>
+	<!-- 获取用户的驾座信息 -->
+	<select id="getUserCarsList" resultMap="carBean">
+		select * from user_cars where user_id=#{userId} order by current desc
+	</select>
+	<!-- 获取用户的驾座信息 -->
+	<select id="getUserCar" resultMap="carBean">
+		select * from user_cars where user_id=#{userId} and id=#{id}
+	</select>
+	<!-- 新增驾座信息 -->
+	<insert id="insert">
+		insert into user_cars
+		(id,user_id,brand_id,motorcyde_type_id,color_id,license_number,car_img_id,current)
+		values(#{id},#{userId},#{brandId},#{motorcydeTypeId},#{colorId},#{licenseNumber},#{carImgId},#{current})
+	</insert>
+	<!-- 更新 -->
+	<update id="update">
+		update user_cars set
+		brand_id=#{brandId},motorcyde_type_id=#{motorcydeTypeId},color_id=#{colorId},license_number=#{licenseNumber},car_img_id=#{carImgId},current=#{current}
+		where user_id=#{userId} and id=#{id}
+	</update>
+	<!-- 删除座驾 -->
+	<delete id="delete">
+		delete from user_cars where id=#{id} and user_id=#{userId}
+	</delete>
+	<!-- 获取座驾数量 -->
+	<select id="getCarsCount" resultType="_int">
+		select count(*) from user_cars where user_id=#{userId}
+	</select>
+	<!-- 设置当前座驾 -->
+	<update id="setCurrentCar">
+		update user_cars set current=1 where id=#{id} and user_id=#{userId}
+	</update>
+	<!-- 设置非当前座驾 -->
+	<update id="setNotCurrentCar">
+		update user_cars set current=0 where user_id=#{userId} and id!=#{id}
+	</update>
+	<!-- 获取相同车型的用户数量 -->
+	<select id="getSameCarUserCount" resultType="_int">
+		select count(distinct user_id) from user_cars where
+		motorcyde_type_id=#{motorcydeTypeId} and user_id !=#{userId}
+	</select>
+	
+	<!-- 获取相同车型用户数据 -->
+	<select id="getSameCarUserList" resultType="com.wuwaikeji.luyou.bean.SameCarUserBean">
+		SELECT DISTINCT ui.user_id AS userId,ui.nick_name AS
+		nickname,ui.gender ,ui.user_icon AS userIcon
+		FROM user_cars uc
+		INNER JOIN user_info ui
+		ON uc.user_id = ui.user_id
+		AND
+		ui.status = 0
+		WHERE uc.motorcyde_type_id =#{motorcydeTypeId} AND uc.user_id !=#{userId} LIMIT #{sqlFrom},#{size}
+	</select>
+	
+	<!-- 根据品牌读取车型 -->
+	<select id="getMotorcydeTypeList" resultType="com.wuwaikeji.luyou.bean.MotorcydeTypeBean">
+		SELECT motorcyde_type_id as motorcydeTypeId,motorcyde_type_name AS motorcydeTypeName,price
+		FROM motorcyde_type
+		WHERE left(motorcyde_type_id,4)=#{brandId}
+	</select>
+	<!-- 根据车型读取颜色列表 -->
+	<select id="getColorList" resultType="com.wuwaikeji.luyou.bean.ColorBean">
+		SELECT color_id AS colorId,color_name as colorName,color_value as colorValue 
+		FROM color WHERE motorcyde_type_id=#{motorcydeTypeId}
+	</select>
+	<!-- 根据车型ID读取汽车图片及颜色 -->
+	<select id="getCarImageListByMotorcydeTypeId" resultType="com.wuwaikeji.luyou.bean.CarImageBean">
+		SELECT ci.car_img_id as carImgId,ci.img_url as imgUrl,ci.color_id as colorId,
+		c.color_value as colorValue,c.color_name as colorName
+		FROM car_images ci,color c
+		WHERE ci.color_id=c.color_id and  ci.motorcyde_type_id=#{motorcydeTypeId}
+	</select>	
+	<!-- 根据车型ID和颜色ID读取汽车图片 -->
+	<select id="getCarImageListByMotorcydeTypeIdAndColorId" resultType="com.wuwaikeji.luyou.bean.CarImageBean">
+	   SELECT ci.car_img_id as carImgId,ci.img_url as imgUrl,ci.color_id as colorId,
+		c.color_value as colorValue,c.color_name as colorName
+		FROM car_images ci,color c
+		WHERE ci.color_id=c.color_id and ci.motorcyde_type_id=#{motorcydeTypeId} and ci.color_id=#{colorId};
+	</select>	
+</mapper>

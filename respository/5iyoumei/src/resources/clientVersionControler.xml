@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+	<entry>
+		<string>iphone</string>
+		<rows>
+			<item>
+				<version>1</version>
+				<versionCode>1.0</versionCode>
+				<updateTime>2014-12-12 00:00:00</updateTime>
+				<filePath>http://itunes.apple.com/cn/app/ya-ku-ka/id493887471?mt=8</filePath>
+				<content>
+					<![CDATA[
+					1.更新了1
+					2.修改了2
+					]]>
+				</content>
+				<isMustUpdate>false</isMustUpdate>
+			</item>
+		</rows>
+	</entry>
+
+	<!--luyou Android app -->
+	<entry>
+		<string>android</string>
+		<rows>
+			<item>
+				<version>1</version>
+				<versionCode>1.0</versionCode>
+				<updateTime>2014-12-12 00:00:00</updateTime>
+				<filePath>http://www.yacol.com/wap/android/yacol_1.0.apk</filePath>
+				<content>
+					<![CDATA[
+					1.更新了1
+					2.修改了2
+					]]>
+				</content>
+				<isMustUpdate>false</isMustUpdate>
+			</item>
+		</rows>
+	</entry>
+
+</map>

@@ -2,7 +2,9 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2015-5-3 23:15:21                            */
 /*==============================================================*/
+CREATE DATABASE IF NOT EXISTS iyoumei DEFAULT CHARACTER SET 'UTF8';
 
+USE iyoumei;
 
 drop table if exists account_type;
 
@@ -10,11 +12,7 @@ drop table if exists remit_log;
 
 drop table if exists reward_rule;
 
-drop table if exists third_user_info;
-
 drop table if exists user_account_info;
-
-drop table if exists user_address;
 
 drop table if exists user_info;
 
@@ -33,6 +31,7 @@ drop table if exists withdraw_log;
 /*==============================================================*/
 /* Table: account_type                                          */
 /*==============================================================*/
+
 create table account_type
 (
    account_type         varchar(3) not null comment '账号类型ID',
@@ -84,13 +83,6 @@ create table reward_rule
 alter table reward_rule comment '公共奖励规则表';
 
 /*==============================================================*/
-/* Table: third_user_info                                       */
-/*==============================================================*/
-create table third_user_info;
-
-alter table third_user_info comment '第三方账号信息，如qq、微信、微博等';
-
-/*==============================================================*/
 /* Table: user_account_info                                     */
 /*==============================================================*/
 create table user_account_info
@@ -108,12 +100,6 @@ create table user_account_info
 
 alter table user_account_info comment '用户账号表';
 
-/*==============================================================*/
-/* Table: user_address                                          */
-/*==============================================================*/
-create table user_address;
-
-alter table user_address comment '用户邮件地址表';
 
 /*==============================================================*/
 /* Table: user_info                                             */

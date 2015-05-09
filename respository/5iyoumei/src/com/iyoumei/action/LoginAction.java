@@ -15,7 +15,7 @@ public class LoginAction extends ParentAction  implements ModelDriven<RegisterMd
 	@Override
 	public String execute() {
 		
-		return null;
+		return "error";
 	}
 
 	@Override

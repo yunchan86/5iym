@@ -25,6 +25,7 @@ public class LoginAction extends ParentAction  implements ModelDriven<RegisterMd
 
 	@Override
 	public String execute() {
+		System.out.println(111);
 		// 验证参数是否合法
 		if (md.getMobileNumber() == null || md.getPwd() == null || "".equals(md.getMobileNumber())
 				|| "".equals(md.getPwd())) {

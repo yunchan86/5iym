@@ -14,7 +14,7 @@ import com.iyoumei.util.enumcollection.RespCode;
 import com.opensymphony.xwork2.ModelDriven;
 import com.thoughtworks.xstream.XStream;
 
-public class LoginAction extends ParentAction implements ModelDriven<RegisterMd> {
+public class LoginAction extends ParentAction  implements ModelDriven<RegisterMd> {
 
 	private static final long serialVersionUID = -5424893111768791388L;
 	private static Log logger = LogFactory.getLog(LoginAction.class);

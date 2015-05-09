@@ -12,10 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-/**
- * @author lijf
- * 
- */
+
 public class ClientVersionControler {
 	private static String clientInfoFileName = ClientVersionControler.class.getResource("/")
 			+ "resources/clientVersionControler.xml";

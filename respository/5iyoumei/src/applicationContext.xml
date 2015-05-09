@@ -37,19 +37,16 @@
 
 	<!-- 自动扫描 mapper,允许自动注入(根据类型匹配),不需要逐个配置mapper -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.wuwaikeji.luyou.persistence" />
+		<property name="basePackage" value="com.iyoumei.persistence" />
 	</bean>
 	<!-- 选择签名验证拦截器 -->
-	<bean id="alternateInterceptor" class="com.wuwaikeji.luyou.interceptor.AlternateInterceptor">
+	<bean id="alternateInterceptor" class="com.iyoumei.interceptor.AlternateInterceptor">
 	</bean>
 	<!-- 登录后签名验证拦截器 -->
-	<bean id="loginSignInterceptor" class="com.wuwaikeji.luyou.interceptor.LoginSignInterceptor">
+	<bean id="loginSignInterceptor" class="com.iyoumei.interceptor.LoginSignInterceptor">
 	</bean>
 	<!-- 登录前签名验证拦截器 -->
-	<bean id="noLoginSignInterceptor" class="com.wuwaikeji.luyou.interceptor.NoLoginSignInterceptor" />
+	<bean id="noLoginSignInterceptor" class="com.iyoumei.interceptor.NoLoginSignInterceptor" />
 
-	<bean id="registerService" class="com.wuwaikeji.luyou.service.impl.RegisterServiceImpl">
-		<property name="userFriendService" ref="userFriendService" />
-	</bean>
 	
 </beans>

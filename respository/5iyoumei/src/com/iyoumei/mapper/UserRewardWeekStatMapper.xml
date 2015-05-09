@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iyoumei.mapper.UserRewardWeekStatMapper" >
+  <resultMap id="BaseResultMap" type="com.iyoumei.entity.UserRewardWeekStat" >
+    <id column="stat_week" property="statWeek" jdbcType="VARCHAR" />
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <id column="week_num" property="weekNum" jdbcType="INTEGER" />
+    <result column="left_num" property="leftNum" jdbcType="INTEGER" />
+    <result column="right_num" property="rightNum" jdbcType="INTEGER" />
+    <result column="zhitui_amt" property="zhituiAmt" jdbcType="BIGINT" />
+    <result column="jiandian_amt" property="jiandianAmt" jdbcType="BIGINT" />
+    <result column="duipeng_amt" property="duipengAmt" jdbcType="BIGINT" />
+    <result column="tax_amt" property="taxAmt" jdbcType="BIGINT" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stat_week, user_id, week_num, left_num, right_num, zhitui_amt, jiandian_amt, duipeng_amt, 
+    tax_amt, insert_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.iyoumei.entity.UserRewardWeekStatExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_reward_week_stat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.iyoumei.entity.UserRewardWeekStatKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_reward_week_stat
+    where stat_week = #{statWeek,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=BIGINT}
+      and week_num = #{weekNum,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.iyoumei.entity.UserRewardWeekStatKey" >
+    delete from user_reward_week_stat
+    where stat_week = #{statWeek,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=BIGINT}
+      and week_num = #{weekNum,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.iyoumei.entity.UserRewardWeekStatExample" >
+    delete from user_reward_week_stat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iyoumei.entity.UserRewardWeekStat" >
+    insert into user_reward_week_stat (stat_week, user_id, week_num, 
+      left_num, right_num, zhitui_amt, 
+      jiandian_amt, duipeng_amt, tax_amt, 
+      insert_time, update_time)
+    values (#{statWeek,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{weekNum,jdbcType=INTEGER}, 
+      #{leftNum,jdbcType=INTEGER}, #{rightNum,jdbcType=INTEGER}, #{zhituiAmt,jdbcType=BIGINT}, 
+      #{jiandianAmt,jdbcType=BIGINT}, #{duipengAmt,jdbcType=BIGINT}, #{taxAmt,jdbcType=BIGINT}, 
+      #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iyoumei.entity.UserRewardWeekStat" >
+    insert into user_reward_week_stat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="statWeek != null" >
+        stat_week,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="weekNum != null" >
+        week_num,
+      </if>
+      <if test="leftNum != null" >
+        left_num,
+      </if>
+      <if test="rightNum != null" >
+        right_num,
+      </if>
+      <if test="zhituiAmt != null" >
+        zhitui_amt,
+      </if>
+      <if test="jiandianAmt != null" >
+        jiandian_amt,
+      </if>
+      <if test="duipengAmt != null" >
+        duipeng_amt,
+      </if>
+      <if test="taxAmt != null" >
+        tax_amt,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="statWeek != null" >
+        #{statWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="weekNum != null" >
+        #{weekNum,jdbcType=INTEGER},
+      </if>
+      <if test="leftNum != null" >
+        #{leftNum,jdbcType=INTEGER},
+      </if>
+      <if test="rightNum != null" >
+        #{rightNum,jdbcType=INTEGER},
+      </if>
+      <if test="zhituiAmt != null" >
+        #{zhituiAmt,jdbcType=BIGINT},
+      </if>
+      <if test="jiandianAmt != null" >
+        #{jiandianAmt,jdbcType=BIGINT},
+      </if>
+      <if test="duipengAmt != null" >
+        #{duipengAmt,jdbcType=BIGINT},
+      </if>
+      <if test="taxAmt != null" >
+        #{taxAmt,jdbcType=BIGINT},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iyoumei.entity.UserRewardWeekStatExample" resultType="java.lang.Integer" >
+    select count(*) from user_reward_week_stat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_reward_week_stat
+    <set >
+      <if test="record.statWeek != null" >
+        stat_week = #{record.statWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.weekNum != null" >
+        week_num = #{record.weekNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.leftNum != null" >
+        left_num = #{record.leftNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.rightNum != null" >
+        right_num = #{record.rightNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.zhituiAmt != null" >
+        zhitui_amt = #{record.zhituiAmt,jdbcType=BIGINT},
+      </if>
+      <if test="record.jiandianAmt != null" >
+        jiandian_amt = #{record.jiandianAmt,jdbcType=BIGINT},
+      </if>
+      <if test="record.duipengAmt != null" >
+        duipeng_amt = #{record.duipengAmt,jdbcType=BIGINT},
+      </if>
+      <if test="record.taxAmt != null" >
+        tax_amt = #{record.taxAmt,jdbcType=BIGINT},
+      </if>
+      <if test="record.insertTime != null" >
+        insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_reward_week_stat
+    set stat_week = #{record.statWeek,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      week_num = #{record.weekNum,jdbcType=INTEGER},
+      left_num = #{record.leftNum,jdbcType=INTEGER},
+      right_num = #{record.rightNum,jdbcType=INTEGER},
+      zhitui_amt = #{record.zhituiAmt,jdbcType=BIGINT},
+      jiandian_amt = #{record.jiandianAmt,jdbcType=BIGINT},
+      duipeng_amt = #{record.duipengAmt,jdbcType=BIGINT},
+      tax_amt = #{record.taxAmt,jdbcType=BIGINT},
+      insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iyoumei.entity.UserRewardWeekStat" >
+    update user_reward_week_stat
+    <set >
+      <if test="leftNum != null" >
+        left_num = #{leftNum,jdbcType=INTEGER},
+      </if>
+      <if test="rightNum != null" >
+        right_num = #{rightNum,jdbcType=INTEGER},
+      </if>
+      <if test="zhituiAmt != null" >
+        zhitui_amt = #{zhituiAmt,jdbcType=BIGINT},
+      </if>
+      <if test="jiandianAmt != null" >
+        jiandian_amt = #{jiandianAmt,jdbcType=BIGINT},
+      </if>
+      <if test="duipengAmt != null" >
+        duipeng_amt = #{duipengAmt,jdbcType=BIGINT},
+      </if>
+      <if test="taxAmt != null" >
+        tax_amt = #{taxAmt,jdbcType=BIGINT},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where stat_week = #{statWeek,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=BIGINT}
+      and week_num = #{weekNum,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iyoumei.entity.UserRewardWeekStat" >
+    update user_reward_week_stat
+    set left_num = #{leftNum,jdbcType=INTEGER},
+      right_num = #{rightNum,jdbcType=INTEGER},
+      zhitui_amt = #{zhituiAmt,jdbcType=BIGINT},
+      jiandian_amt = #{jiandianAmt,jdbcType=BIGINT},
+      duipeng_amt = #{duipengAmt,jdbcType=BIGINT},
+      tax_amt = #{taxAmt,jdbcType=BIGINT},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where stat_week = #{statWeek,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=BIGINT}
+      and week_num = #{weekNum,jdbcType=INTEGER}
+  </update>
+</mapper>

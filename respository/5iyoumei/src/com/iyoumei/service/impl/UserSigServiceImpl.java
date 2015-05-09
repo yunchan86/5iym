@@ -6,9 +6,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Resource;
 
-import com.iyoumei.domain.UserSigDomain;
-import com.iyoumei.persistence.UserSigMapper;
-import com.iyoumei.persistence.UuidMapper;
+import com.iyoumei.entity.UserSigDomain;
+import com.iyoumei.mapper1.UserSigMapper;
+import com.iyoumei.mapper1.UuidMapper;
 import com.iyoumei.service.IUserSigService;
 import com.iyoumei.util.UtilMethods;
 

@@ -2,8 +2,8 @@ package com.iyoumei.service.impl;
 
 import javax.annotation.Resource;
 
+import com.iyoumei.mapper1.UserSettingsMapper;
 import com.iyoumei.modeldriver.UserSettingsMd;
-import com.iyoumei.persistence.UserSettingsMapper;
 import com.iyoumei.service.IUserSettingsService;
 
 public class UserSettingsServiceImpl implements IUserSettingsService {

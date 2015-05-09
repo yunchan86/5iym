@@ -6,12 +6,12 @@ import javax.annotation.Resource;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iyoumei.domain.WzInfoDomain;
-import com.iyoumei.domain.WzQueryLogDomain;
+import com.iyoumei.entity.WzInfoDomain;
+import com.iyoumei.entity.WzQueryLogDomain;
+import com.iyoumei.mapper1.UuidMapper;
+import com.iyoumei.mapper1.WzInfoMapper;
+import com.iyoumei.mapper1.WzQueryLogMapper;
 import com.iyoumei.modeldriver.WzQueryMd;
-import com.iyoumei.persistence.UuidMapper;
-import com.iyoumei.persistence.WzInfoMapper;
-import com.iyoumei.persistence.WzQueryLogMapper;
 import com.iyoumei.service.IWzService;
 
 public class WzServiceImpl implements IWzService {

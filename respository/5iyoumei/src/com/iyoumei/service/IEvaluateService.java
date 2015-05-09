@@ -1,7 +1,7 @@
 package com.iyoumei.service;
 
 import com.iyoumei.bean.ResultDataBean;
-import com.iyoumei.domain.UserEvaluateDomain;
+import com.iyoumei.entity.UserEvaluateDomain;
 import com.iyoumei.modeldriver.EvaluateMd;
 import com.iyoumei.util.bean.LogBean;
 

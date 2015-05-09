@@ -5,12 +5,12 @@ import javax.annotation.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iyoumei.bean.LoginBean;
-import com.iyoumei.domain.UserInfoDomain;
-import com.iyoumei.domain.UserInfoHXLogDomain;
+import com.iyoumei.entity.UserInfoDomain;
+import com.iyoumei.entity.UserInfoHXLogDomain;
+import com.iyoumei.mapper1.UserInfoHXLogMapper;
+import com.iyoumei.mapper1.UserInfoMapper;
+import com.iyoumei.mapper1.UuidMapper;
 import com.iyoumei.modeldriver.RegisterMd;
-import com.iyoumei.persistence.UserInfoHXLogMapper;
-import com.iyoumei.persistence.UserInfoMapper;
-import com.iyoumei.persistence.UuidMapper;
 import com.iyoumei.service.IRegisterService;
 import com.iyoumei.service.IUserFriendService;
 import com.iyoumei.util.HXUserUtil;

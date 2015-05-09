@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.iyoumei.bean.ResultDataBean;
-import com.iyoumei.domain.*;
+import com.iyoumei.entity.*;
 
 public interface  IFriendService {
 

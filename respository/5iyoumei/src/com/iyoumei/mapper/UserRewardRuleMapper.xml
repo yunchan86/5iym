@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iyoumei.mapper.UserRewardRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.iyoumei.entity.UserRewardRule" >
+    <id column="rule_id" property="ruleId" jdbcType="INTEGER" />
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+    <result column="max_level" property="maxLevel" jdbcType="INTEGER" />
+    <result column="time_cycle" property="timeCycle" jdbcType="SMALLINT" />
+    <result column="limit_max_amt" property="limitMaxAmt" jdbcType="BIGINT" />
+    <result column="unit_amt" property="unitAmt" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rule_id, user_id, rule_name, max_level, time_cycle, limit_max_amt, unit_amt, status, 
+    insert_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.iyoumei.entity.UserRewardRuleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_reward_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.iyoumei.entity.UserRewardRuleKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_reward_rule
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.iyoumei.entity.UserRewardRuleKey" >
+    delete from user_reward_rule
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.iyoumei.entity.UserRewardRuleExample" >
+    delete from user_reward_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iyoumei.entity.UserRewardRule" >
+    insert into user_reward_rule (rule_id, user_id, rule_name, 
+      max_level, time_cycle, limit_max_amt, 
+      unit_amt, status, insert_time, 
+      update_time)
+    values (#{ruleId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{ruleName,jdbcType=VARCHAR}, 
+      #{maxLevel,jdbcType=INTEGER}, #{timeCycle,jdbcType=SMALLINT}, #{limitMaxAmt,jdbcType=BIGINT}, 
+      #{unitAmt,jdbcType=BIGINT}, #{status,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iyoumei.entity.UserRewardRule" >
+    insert into user_reward_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        rule_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="ruleName != null" >
+        rule_name,
+      </if>
+      <if test="maxLevel != null" >
+        max_level,
+      </if>
+      <if test="timeCycle != null" >
+        time_cycle,
+      </if>
+      <if test="limitMaxAmt != null" >
+        limit_max_amt,
+      </if>
+      <if test="unitAmt != null" >
+        unit_amt,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="maxLevel != null" >
+        #{maxLevel,jdbcType=INTEGER},
+      </if>
+      <if test="timeCycle != null" >
+        #{timeCycle,jdbcType=SMALLINT},
+      </if>
+      <if test="limitMaxAmt != null" >
+        #{limitMaxAmt,jdbcType=BIGINT},
+      </if>
+      <if test="unitAmt != null" >
+        #{unitAmt,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iyoumei.entity.UserRewardRuleExample" resultType="java.lang.Integer" >
+    select count(*) from user_reward_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_reward_rule
+    <set >
+      <if test="record.ruleId != null" >
+        rule_id = #{record.ruleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.ruleName != null" >
+        rule_name = #{record.ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxLevel != null" >
+        max_level = #{record.maxLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeCycle != null" >
+        time_cycle = #{record.timeCycle,jdbcType=SMALLINT},
+      </if>
+      <if test="record.limitMaxAmt != null" >
+        limit_max_amt = #{record.limitMaxAmt,jdbcType=BIGINT},
+      </if>
+      <if test="record.unitAmt != null" >
+        unit_amt = #{record.unitAmt,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insertTime != null" >
+        insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_reward_rule
+    set rule_id = #{record.ruleId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      rule_name = #{record.ruleName,jdbcType=VARCHAR},
+      max_level = #{record.maxLevel,jdbcType=INTEGER},
+      time_cycle = #{record.timeCycle,jdbcType=SMALLINT},
+      limit_max_amt = #{record.limitMaxAmt,jdbcType=BIGINT},
+      unit_amt = #{record.unitAmt,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=VARCHAR},
+      insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iyoumei.entity.UserRewardRule" >
+    update user_reward_rule
+    <set >
+      <if test="ruleName != null" >
+        rule_name = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="maxLevel != null" >
+        max_level = #{maxLevel,jdbcType=INTEGER},
+      </if>
+      <if test="timeCycle != null" >
+        time_cycle = #{timeCycle,jdbcType=SMALLINT},
+      </if>
+      <if test="limitMaxAmt != null" >
+        limit_max_amt = #{limitMaxAmt,jdbcType=BIGINT},
+      </if>
+      <if test="unitAmt != null" >
+        unit_amt = #{unitAmt,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iyoumei.entity.UserRewardRule" >
+    update user_reward_rule
+    set rule_name = #{ruleName,jdbcType=VARCHAR},
+      max_level = #{maxLevel,jdbcType=INTEGER},
+      time_cycle = #{timeCycle,jdbcType=SMALLINT},
+      limit_max_amt = #{limitMaxAmt,jdbcType=BIGINT},
+      unit_amt = #{unitAmt,jdbcType=BIGINT},
+      status = #{status,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

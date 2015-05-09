@@ -6,7 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import com.iyoumei.bean.BrandBean;
-import com.iyoumei.persistence.BrandMapper;
+import com.iyoumei.mapper1.BrandMapper;
 import com.iyoumei.service.IBrandService;
 
 public class BrandServiceImpl implements IBrandService {

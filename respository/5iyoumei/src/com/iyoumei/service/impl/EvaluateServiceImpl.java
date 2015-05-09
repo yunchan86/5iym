@@ -6,14 +6,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.iyoumei.bean.ResultDataBean;
-import com.iyoumei.domain.UserEvaluateDomain;
-import com.iyoumei.domain.UserEvaluateHistoryDomain;
+import com.iyoumei.entity.UserEvaluateDomain;
+import com.iyoumei.entity.UserEvaluateHistoryDomain;
 import com.iyoumei.gearman.client.CommonWorker;
 import com.iyoumei.gearman.client.EvaluateUpClient;
 import com.iyoumei.gearman.client.FacJobClient;
+import com.iyoumei.mapper1.EvaluateHistoryMapper;
+import com.iyoumei.mapper1.EvaluateMapper;
 import com.iyoumei.modeldriver.EvaluateMd;
-import com.iyoumei.persistence.EvaluateHistoryMapper;
-import com.iyoumei.persistence.EvaluateMapper;
 import com.iyoumei.service.IEvaluateService;
 import com.iyoumei.util.bean.LogBean;
 import com.iyoumei.util.enumcollection.RespCode;

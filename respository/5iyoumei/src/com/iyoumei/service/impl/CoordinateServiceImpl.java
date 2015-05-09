@@ -2,8 +2,8 @@ package com.iyoumei.service.impl;
 
 import javax.annotation.Resource;
 
+import com.iyoumei.mapper1.CoordinateMapper;
 import com.iyoumei.modeldriver.CoordinateMd;
-import com.iyoumei.persistence.CoordinateMapper;
 import com.iyoumei.service.ICoordinateService;
 
 public class CoordinateServiceImpl implements ICoordinateService {

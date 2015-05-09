@@ -1,6 +1,6 @@
 package com.iyoumei.service;
 
-import com.iyoumei.domain.UserSigDomain;
+import com.iyoumei.entity.UserSigDomain;
 
 public interface IUserSigService {
 	/**

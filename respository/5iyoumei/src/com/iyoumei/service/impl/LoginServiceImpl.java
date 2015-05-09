@@ -3,8 +3,8 @@ package com.iyoumei.service.impl;
 import javax.annotation.Resource;
 
 import com.iyoumei.bean.LoginBean;
-import com.iyoumei.domain.UserInfoDomain;
-import com.iyoumei.persistence.UserInfoMapper;
+import com.iyoumei.entity.UserInfoDomain;
+import com.iyoumei.mapper1.UserInfoMapper;
 import com.iyoumei.service.ILoginService;
 import com.iyoumei.util.enumcollection.RespCode;
 import com.iyoumei.util.enumcollection.UserStatus;

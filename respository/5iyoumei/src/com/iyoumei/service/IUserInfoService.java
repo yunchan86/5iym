@@ -1,7 +1,7 @@
 package com.iyoumei.service;
 
 import com.iyoumei.bean.CodeMsgBean;
-import com.iyoumei.domain.UserInfoDomain;
+import com.iyoumei.entity.UserInfoDomain;
 
 public interface IUserInfoService {
 	/**

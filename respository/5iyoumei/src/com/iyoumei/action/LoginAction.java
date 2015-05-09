@@ -4,7 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.iyoumei.bean.LoginBean;
-import com.iyoumei.domain.UserSigDomain;
+import com.iyoumei.entity.UserSigDomain;
 import com.iyoumei.modeldriver.RegisterMd;
 import com.iyoumei.service.ILoginService;
 import com.iyoumei.service.IUserSigService;

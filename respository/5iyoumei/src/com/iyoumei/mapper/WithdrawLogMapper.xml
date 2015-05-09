@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iyoumei.mapper.WithdrawLogMapper" >
+  <resultMap id="BaseResultMap" type="com.iyoumei.entity.WithdrawLog" >
+    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="withdraw_user_id" property="withdrawUserId" jdbcType="BIGINT" />
+    <result column="withdraw_user_name" property="withdrawUserName" jdbcType="VARCHAR" />
+    <result column="withdraw_true_name" property="withdrawTrueName" jdbcType="VARCHAR" />
+    <result column="withdraw_account_id" property="withdrawAccountId" jdbcType="VARCHAR" />
+    <result column="withdraw_type" property="withdrawType" jdbcType="VARCHAR" />
+    <result column="withdraw_amt" property="withdrawAmt" jdbcType="BIGINT" />
+    <result column="pay_true_name" property="payTrueName" jdbcType="VARCHAR" />
+    <result column="pay_account_id" property="payAccountId" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="pay_amt" property="payAmt" jdbcType="BIGINT" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, withdraw_user_id, withdraw_user_name, withdraw_true_name, withdraw_account_id, 
+    withdraw_type, withdraw_amt, pay_true_name, pay_account_id, pay_type, pay_amt, insert_time, 
+    update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.iyoumei.entity.WithdrawLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from withdraw_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from withdraw_log
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from withdraw_log
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.iyoumei.entity.WithdrawLogExample" >
+    delete from withdraw_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iyoumei.entity.WithdrawLog" >
+    insert into withdraw_log (order_id, withdraw_user_id, withdraw_user_name, 
+      withdraw_true_name, withdraw_account_id, withdraw_type, 
+      withdraw_amt, pay_true_name, pay_account_id, 
+      pay_type, pay_amt, insert_time, 
+      update_time)
+    values (#{orderId,jdbcType=VARCHAR}, #{withdrawUserId,jdbcType=BIGINT}, #{withdrawUserName,jdbcType=VARCHAR}, 
+      #{withdrawTrueName,jdbcType=VARCHAR}, #{withdrawAccountId,jdbcType=VARCHAR}, #{withdrawType,jdbcType=VARCHAR}, 
+      #{withdrawAmt,jdbcType=BIGINT}, #{payTrueName,jdbcType=VARCHAR}, #{payAccountId,jdbcType=VARCHAR}, 
+      #{payType,jdbcType=VARCHAR}, #{payAmt,jdbcType=BIGINT}, #{insertTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iyoumei.entity.WithdrawLog" >
+    insert into withdraw_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="withdrawUserId != null" >
+        withdraw_user_id,
+      </if>
+      <if test="withdrawUserName != null" >
+        withdraw_user_name,
+      </if>
+      <if test="withdrawTrueName != null" >
+        withdraw_true_name,
+      </if>
+      <if test="withdrawAccountId != null" >
+        withdraw_account_id,
+      </if>
+      <if test="withdrawType != null" >
+        withdraw_type,
+      </if>
+      <if test="withdrawAmt != null" >
+        withdraw_amt,
+      </if>
+      <if test="payTrueName != null" >
+        pay_true_name,
+      </if>
+      <if test="payAccountId != null" >
+        pay_account_id,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="payAmt != null" >
+        pay_amt,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawUserId != null" >
+        #{withdrawUserId,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawUserName != null" >
+        #{withdrawUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawTrueName != null" >
+        #{withdrawTrueName,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawAccountId != null" >
+        #{withdrawAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawType != null" >
+        #{withdrawType,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawAmt != null" >
+        #{withdrawAmt,jdbcType=BIGINT},
+      </if>
+      <if test="payTrueName != null" >
+        #{payTrueName,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccountId != null" >
+        #{payAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmt != null" >
+        #{payAmt,jdbcType=BIGINT},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iyoumei.entity.WithdrawLogExample" resultType="java.lang.Integer" >
+    select count(*) from withdraw_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update withdraw_log
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.withdrawUserId != null" >
+        withdraw_user_id = #{record.withdrawUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.withdrawUserName != null" >
+        withdraw_user_name = #{record.withdrawUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.withdrawTrueName != null" >
+        withdraw_true_name = #{record.withdrawTrueName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.withdrawAccountId != null" >
+        withdraw_account_id = #{record.withdrawAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.withdrawType != null" >
+        withdraw_type = #{record.withdrawType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.withdrawAmt != null" >
+        withdraw_amt = #{record.withdrawAmt,jdbcType=BIGINT},
+      </if>
+      <if test="record.payTrueName != null" >
+        pay_true_name = #{record.payTrueName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payAccountId != null" >
+        pay_account_id = #{record.payAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payType != null" >
+        pay_type = #{record.payType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payAmt != null" >
+        pay_amt = #{record.payAmt,jdbcType=BIGINT},
+      </if>
+      <if test="record.insertTime != null" >
+        insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update withdraw_log
+    set order_id = #{record.orderId,jdbcType=VARCHAR},
+      withdraw_user_id = #{record.withdrawUserId,jdbcType=BIGINT},
+      withdraw_user_name = #{record.withdrawUserName,jdbcType=VARCHAR},
+      withdraw_true_name = #{record.withdrawTrueName,jdbcType=VARCHAR},
+      withdraw_account_id = #{record.withdrawAccountId,jdbcType=VARCHAR},
+      withdraw_type = #{record.withdrawType,jdbcType=VARCHAR},
+      withdraw_amt = #{record.withdrawAmt,jdbcType=BIGINT},
+      pay_true_name = #{record.payTrueName,jdbcType=VARCHAR},
+      pay_account_id = #{record.payAccountId,jdbcType=VARCHAR},
+      pay_type = #{record.payType,jdbcType=VARCHAR},
+      pay_amt = #{record.payAmt,jdbcType=BIGINT},
+      insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iyoumei.entity.WithdrawLog" >
+    update withdraw_log
+    <set >
+      <if test="withdrawUserId != null" >
+        withdraw_user_id = #{withdrawUserId,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawUserName != null" >
+        withdraw_user_name = #{withdrawUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawTrueName != null" >
+        withdraw_true_name = #{withdrawTrueName,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawAccountId != null" >
+        withdraw_account_id = #{withdrawAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawType != null" >
+        withdraw_type = #{withdrawType,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawAmt != null" >
+        withdraw_amt = #{withdrawAmt,jdbcType=BIGINT},
+      </if>
+      <if test="payTrueName != null" >
+        pay_true_name = #{payTrueName,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccountId != null" >
+        pay_account_id = #{payAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmt != null" >
+        pay_amt = #{payAmt,jdbcType=BIGINT},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iyoumei.entity.WithdrawLog" >
+    update withdraw_log
+    set withdraw_user_id = #{withdrawUserId,jdbcType=BIGINT},
+      withdraw_user_name = #{withdrawUserName,jdbcType=VARCHAR},
+      withdraw_true_name = #{withdrawTrueName,jdbcType=VARCHAR},
+      withdraw_account_id = #{withdrawAccountId,jdbcType=VARCHAR},
+      withdraw_type = #{withdrawType,jdbcType=VARCHAR},
+      withdraw_amt = #{withdrawAmt,jdbcType=BIGINT},
+      pay_true_name = #{payTrueName,jdbcType=VARCHAR},
+      pay_account_id = #{payAccountId,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      pay_amt = #{payAmt,jdbcType=BIGINT},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

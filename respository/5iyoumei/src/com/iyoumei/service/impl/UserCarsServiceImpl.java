@@ -12,16 +12,16 @@ import com.iyoumei.bean.CarImageBean;
 import com.iyoumei.bean.ColorBean;
 import com.iyoumei.bean.MotorcydeTypeBean;
 import com.iyoumei.bean.SameCarUserBean;
-import com.iyoumei.domain.CarBrandDomain;
-import com.iyoumei.domain.UserCarBrandDomain;
-import com.iyoumei.domain.UserCarsDomain;
-import com.iyoumei.domain.UserInfoDomain;
+import com.iyoumei.entity.CarBrandDomain;
+import com.iyoumei.entity.UserCarBrandDomain;
+import com.iyoumei.entity.UserCarsDomain;
+import com.iyoumei.entity.UserInfoDomain;
 import com.iyoumei.exception.UserNotExistsException;
+import com.iyoumei.mapper1.CarBrandMapper;
+import com.iyoumei.mapper1.UserCarsMapper;
+import com.iyoumei.mapper1.UserInfoMapper;
+import com.iyoumei.mapper1.UuidMapper;
 import com.iyoumei.modeldriver.UserCarsMd;
-import com.iyoumei.persistence.CarBrandMapper;
-import com.iyoumei.persistence.UserCarsMapper;
-import com.iyoumei.persistence.UserInfoMapper;
-import com.iyoumei.persistence.UuidMapper;
 import com.iyoumei.service.IUserCarsService;
 
 public class UserCarsServiceImpl implements IUserCarsService {

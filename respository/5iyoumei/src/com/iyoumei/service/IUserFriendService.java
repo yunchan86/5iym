@@ -6,7 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.iyoumei.bean.ResultDataBean;
-import com.iyoumei.domain.UserFriendDomain;
+import com.iyoumei.entity.UserFriendDomain;
 import com.iyoumei.modeldriver.UserRelationsMd;
 import com.iyoumei.util.bean.LogBean;
 

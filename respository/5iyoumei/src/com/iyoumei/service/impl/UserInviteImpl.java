@@ -3,15 +3,15 @@ package com.iyoumei.service.impl;
 import javax.annotation.Resource;
 
 import com.iyoumei.bean.CodeMsgBean;
-import com.iyoumei.domain.UserInviteDomain;
+import com.iyoumei.entity.UserInviteDomain;
 import com.iyoumei.gearman.client.AbsClientJob;
 import com.iyoumei.gearman.client.CommonWorker;
 import com.iyoumei.gearman.client.EvaluateUpClient;
 import com.iyoumei.gearman.client.FacJobClient;
 import com.iyoumei.gearman.client.InviteClient;
+import com.iyoumei.mapper1.UserInviteMapper;
 import com.iyoumei.modeldriver.InviteMd;
 import com.iyoumei.modeldriver.VerifyMd;
-import com.iyoumei.persistence.UserInviteMapper;
 import com.iyoumei.service.IUserInvite;
 import com.iyoumei.util.bean.LogBean;
 import com.iyoumei.util.enumcollection.RespCode;

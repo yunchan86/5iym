@@ -6,8 +6,8 @@ import com.iyoumei.bean.CarImageBean;
 import com.iyoumei.bean.ColorBean;
 import com.iyoumei.bean.MotorcydeTypeBean;
 import com.iyoumei.bean.SameCarUserBean;
-import com.iyoumei.domain.UserCarBrandDomain;
-import com.iyoumei.domain.UserCarsDomain;
+import com.iyoumei.entity.UserCarBrandDomain;
+import com.iyoumei.entity.UserCarsDomain;
 import com.iyoumei.modeldriver.UserCarsMd;
 
 public interface IUserCarsService {

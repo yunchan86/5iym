@@ -2,7 +2,7 @@ package com.iyoumei.service;
 
 import java.util.List;
 
-import com.iyoumei.domain.UserCircleMsgMainDomain;
+import com.iyoumei.entity.UserCircleMsgMainDomain;
 
 public interface IFriendTribeService {
 	/**

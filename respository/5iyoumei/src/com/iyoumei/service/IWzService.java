@@ -2,7 +2,7 @@ package com.iyoumei.service;
 
 import java.util.Collection;
 
-import com.iyoumei.domain.WzInfoDomain;
+import com.iyoumei.entity.WzInfoDomain;
 import com.iyoumei.modeldriver.WzQueryMd;
 
 /**

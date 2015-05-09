@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import com.iyoumei.bean.CityBean;
 import com.iyoumei.bean.DistrictBean;
 import com.iyoumei.bean.ProvinceBean;
-import com.iyoumei.persistence.DistrictMapper;
+import com.iyoumei.mapper1.DistrictMapper;
 import com.iyoumei.service.IDistrictService;
 
 public class DistrictServiceImpl implements IDistrictService {

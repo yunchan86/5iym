@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iyoumei.mapper.UserRewardLogMapper" >
+  <resultMap id="BaseResultMap" type="com.iyoumei.entity.UserRewardLog" >
+    <id column="rule_id" property="ruleId" jdbcType="INTEGER" />
+    <id column="super_id" property="superId" jdbcType="BIGINT" />
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="super_name" property="superName" jdbcType="VARCHAR" />
+    <result column="reward_amt" property="rewardAmt" jdbcType="BIGINT" />
+    <result column="super_position" property="superPosition" jdbcType="TINYINT" />
+    <result column="super_level_num" property="superLevelNum" jdbcType="INTEGER" />
+    <result column="reward_status" property="rewardStatus" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rule_id, super_id, user_id, user_name, super_name, reward_amt, super_position, super_level_num, 
+    reward_status, insert_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.iyoumei.entity.UserRewardLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_reward_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.iyoumei.entity.UserRewardLogKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_reward_log
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+      and super_id = #{superId,jdbcType=BIGINT}
+      and user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.iyoumei.entity.UserRewardLogKey" >
+    delete from user_reward_log
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+      and super_id = #{superId,jdbcType=BIGINT}
+      and user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.iyoumei.entity.UserRewardLogExample" >
+    delete from user_reward_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iyoumei.entity.UserRewardLog" >
+    insert into user_reward_log (rule_id, super_id, user_id, 
+      user_name, super_name, reward_amt, 
+      super_position, super_level_num, reward_status, 
+      insert_time, update_time)
+    values (#{ruleId,jdbcType=INTEGER}, #{superId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{userName,jdbcType=VARCHAR}, #{superName,jdbcType=VARCHAR}, #{rewardAmt,jdbcType=BIGINT}, 
+      #{superPosition,jdbcType=TINYINT}, #{superLevelNum,jdbcType=INTEGER}, #{rewardStatus,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iyoumei.entity.UserRewardLog" >
+    insert into user_reward_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        rule_id,
+      </if>
+      <if test="superId != null" >
+        super_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="superName != null" >
+        super_name,
+      </if>
+      <if test="rewardAmt != null" >
+        reward_amt,
+      </if>
+      <if test="superPosition != null" >
+        super_position,
+      </if>
+      <if test="superLevelNum != null" >
+        super_level_num,
+      </if>
+      <if test="rewardStatus != null" >
+        reward_status,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=INTEGER},
+      </if>
+      <if test="superId != null" >
+        #{superId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="superName != null" >
+        #{superName,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardAmt != null" >
+        #{rewardAmt,jdbcType=BIGINT},
+      </if>
+      <if test="superPosition != null" >
+        #{superPosition,jdbcType=TINYINT},
+      </if>
+      <if test="superLevelNum != null" >
+        #{superLevelNum,jdbcType=INTEGER},
+      </if>
+      <if test="rewardStatus != null" >
+        #{rewardStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iyoumei.entity.UserRewardLogExample" resultType="java.lang.Integer" >
+    select count(*) from user_reward_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_reward_log
+    <set >
+      <if test="record.ruleId != null" >
+        rule_id = #{record.ruleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.superId != null" >
+        super_id = #{record.superId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.superName != null" >
+        super_name = #{record.superName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rewardAmt != null" >
+        reward_amt = #{record.rewardAmt,jdbcType=BIGINT},
+      </if>
+      <if test="record.superPosition != null" >
+        super_position = #{record.superPosition,jdbcType=TINYINT},
+      </if>
+      <if test="record.superLevelNum != null" >
+        super_level_num = #{record.superLevelNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.rewardStatus != null" >
+        reward_status = #{record.rewardStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insertTime != null" >
+        insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_reward_log
+    set rule_id = #{record.ruleId,jdbcType=INTEGER},
+      super_id = #{record.superId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      super_name = #{record.superName,jdbcType=VARCHAR},
+      reward_amt = #{record.rewardAmt,jdbcType=BIGINT},
+      super_position = #{record.superPosition,jdbcType=TINYINT},
+      super_level_num = #{record.superLevelNum,jdbcType=INTEGER},
+      reward_status = #{record.rewardStatus,jdbcType=VARCHAR},
+      insert_time = #{record.insertTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iyoumei.entity.UserRewardLog" >
+    update user_reward_log
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="superName != null" >
+        super_name = #{superName,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardAmt != null" >
+        reward_amt = #{rewardAmt,jdbcType=BIGINT},
+      </if>
+      <if test="superPosition != null" >
+        super_position = #{superPosition,jdbcType=TINYINT},
+      </if>
+      <if test="superLevelNum != null" >
+        super_level_num = #{superLevelNum,jdbcType=INTEGER},
+      </if>
+      <if test="rewardStatus != null" >
+        reward_status = #{rewardStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+      and super_id = #{superId,jdbcType=BIGINT}
+      and user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iyoumei.entity.UserRewardLog" >
+    update user_reward_log
+    set user_name = #{userName,jdbcType=VARCHAR},
+      super_name = #{superName,jdbcType=VARCHAR},
+      reward_amt = #{rewardAmt,jdbcType=BIGINT},
+      super_position = #{superPosition,jdbcType=TINYINT},
+      super_level_num = #{superLevelNum,jdbcType=INTEGER},
+      reward_status = #{rewardStatus,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+      and super_id = #{superId,jdbcType=BIGINT}
+      and user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

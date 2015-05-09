@@ -10,8 +10,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.StrutsStatics;
 
 import com.iyoumei.bean.CodeMsgBean;
-import com.iyoumei.domain.UserInfoDomain;
-import com.iyoumei.domain.UserSigDomain;
+import com.iyoumei.entity.UserInfoDomain;
+import com.iyoumei.entity.UserSigDomain;
 import com.iyoumei.service.IUserInfoService;
 import com.iyoumei.service.IUserSigService;
 import com.iyoumei.util.Constant;

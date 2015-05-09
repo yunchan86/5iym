@@ -28,6 +28,8 @@ drop table if exists user_reward_week_stat;
 
 drop table if exists withdraw_log;
 
+drop table if exists vip_user_record;
+
 /*==============================================================*/
 /* Table: account_type                                          */
 /*==============================================================*/
@@ -252,4 +254,19 @@ create table withdraw_log
 );
 
 alter table withdraw_log comment '提现登记';
+
+/*==============================================================*/
+/* Table: vip_user_record                                       */
+/*==============================================================*/
+create table vip_user_record
+(
+   record_id            bigint(20) not null comment '记录ID',
+   user_id              bigint(20) not null comment '用户ID',
+   insert_time          datetime not null comment '插入时间',
+   status               varchar(2) not null default '0' comment '状态：:0未处理，1-已处理，2-作废',
+   update_time          timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+   primary key (record_id)
+);
+
+alter table vip_user_record comment 'vip会员记录';
 

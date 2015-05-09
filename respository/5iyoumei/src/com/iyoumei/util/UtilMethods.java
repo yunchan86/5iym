@@ -32,6 +32,8 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.iyoumei.util.constant.Constant;
+
 public class UtilMethods {
 	private static Log logger = LogFactory.getLog(UtilMethods.class);
 

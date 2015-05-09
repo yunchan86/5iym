@@ -3,8 +3,6 @@ package com.iyoumei.exception;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-import com.wuwaikeji.luyou.exception.BusinessException;
-
 public class BusinessException extends RuntimeException{
 	/**
 	 * 

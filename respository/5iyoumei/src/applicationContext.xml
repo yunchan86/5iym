@@ -32,7 +32,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<!-- <property name="mapperLocations" value="classpath*:com/jsdz/xml/*.xml" /> -->
-		<property name="typeAliasesPackage" value="com.wuwaikeji.luyou.domain" />
+		<property name="typeAliasesPackage" value="com.iyoumei.entity" />
 	</bean>
 
 	<!-- 自动扫描 mapper,允许自动注入(根据类型匹配),不需要逐个配置mapper -->
@@ -41,13 +41,9 @@
 	</bean>
 	<!-- 选择签名验证拦截器 -->
 	<bean id="alternateInterceptor" class="com.wuwaikeji.luyou.interceptor.AlternateInterceptor">
-		<property name="userSigService" ref="userSigService" />
-		<property name="userInfoService" ref="userInfoService" />
 	</bean>
 	<!-- 登录后签名验证拦截器 -->
 	<bean id="loginSignInterceptor" class="com.wuwaikeji.luyou.interceptor.LoginSignInterceptor">
-		<property name="userSigService" ref="userSigService" />
-		<property name="userInfoService" ref="userInfoService" />
 	</bean>
 	<!-- 登录前签名验证拦截器 -->
 	<bean id="noLoginSignInterceptor" class="com.wuwaikeji.luyou.interceptor.NoLoginSignInterceptor" />
@@ -55,129 +51,5 @@
 	<bean id="registerService" class="com.wuwaikeji.luyou.service.impl.RegisterServiceImpl">
 		<property name="userFriendService" ref="userFriendService" />
 	</bean>
-	<bean id="userSigService" class="com.wuwaikeji.luyou.service.impl.UserSigServiceImpl" />
-	<!-- 注册action -->
-	<bean id="registerAction" class="com.wuwaikeji.luyou.action.RegisterAction" scope="prototype">
-		<property name="registerService" ref="registerService" />
-		<property name="userSigService" ref="userSigService" />
-		<property name="friendService" ref="friendService" />
-		<property name="authCodeService" ref="authCodeService" />
-	</bean>
-	<bean id="loginService" class="com.wuwaikeji.luyou.service.impl.LoginServiceImpl" />
-	<!-- 登录 -->
-	<bean id="loginAction" class="com.wuwaikeji.luyou.action.LoginAction" scope="prototype">
-		<property name="loginService" ref="loginService" />
-		<property name="userSigService" ref="userSigService" />
-	</bean>
-
-	<bean id="userGroupAction" class="com.wuwaikeji.luyou.action.UserGroupAction" scope="prototype">
-		<property name="userGroupManagerService" ref="userGroupManagerService" />
-	</bean>
-	<bean id="userRelationsAction" class="com.wuwaikeji.luyou.action.UserRelationsAction" scope="prototype">
-		<property name="userFriendService" ref="userFriendService" />
-	</bean>
-	<bean id="chatAction" class="com.wuwaikeji.luyou.action.ChatAction" scope="prototype">
-		<property name="chatService" ref="chatService" />
-	</bean>
-	<!-- 登出 -->
-	<bean id="logoutAction" class="com.wuwaikeji.luyou.action.LogoutAction" scope="prototype">
-		<property name="userSigService" ref="userSigService" />
-	</bean>
-
-	<bean id="userInfoService" class="com.wuwaikeji.luyou.service.impl.UserInfoServiceImpl">
-		<property name="iconUrlPrefix" value="${icon_url}" />
-	</bean>
-	<!-- 获取用户信息 -->
-	<bean id="userInfoAction" class="com.wuwaikeji.luyou.action.UserInfoAction" scope="prototype">
-		<property name="userInfoService" ref="userInfoService" />
-	</bean>
-
-	<bean id="userSettingsService" class="com.wuwaikeji.luyou.service.impl.UserSettingsServiceImpl" />
-	<!-- 隐私及用户设置 -->
-	<bean id="userSettingsAction" class="com.wuwaikeji.luyou.action.UserSettingsAction" scope="prototype">
-		<property name="userSettingsService" ref="userSettingsService" />
-	</bean>
-
-	<bean id="coordinateService" class="com.wuwaikeji.luyou.service.impl.CoordinateServiceImpl" />
-	<!-- 用户位置报告 -->
-	<bean id="coordinateAction" class="com.wuwaikeji.luyou.action.CoordinateAction" scope="prototype">
-		<property name="coordinateService" ref="coordinateService" />
-	</bean>
-
-	<bean id="evaluateService" class="com.wuwaikeji.luyou.service.impl.EvaluateServiceImpl" />
-	<!-- 用户评价 -->
-	<bean id="evaluateAction" class="com.wuwaikeji.luyou.action.EvaluateAction" scope="prototype">
-		<property name="evaluateService" ref="evaluateService" />
-	</bean>
-
-	<bean id="friendService" class="com.wuwaikeji.luyou.service.impl.FriendServiceImpl" />
-	<bean id="userGroupManagerService" class="com.wuwaikeji.luyou.service.impl.UserGroupManagerServiceImpl" />
-	<bean id="userFriendService" class="com.wuwaikeji.luyou.service.impl.UserFriendServiceImpl" />
-	<bean id="chatService" class="com.wuwaikeji.luyou.service.impl.ChatServiceImpl" />
-	<bean id="userCarsService" class="com.wuwaikeji.luyou.service.impl.UserCarsServiceImpl" />
-	<!-- 用户座驾 -->
-	<bean id="userCarsAction" class="com.wuwaikeji.luyou.action.UserCarsAction" scope="prototype">
-		<property name="userCarsService" ref="userCarsService" />
-		<property name="maxCars" value="${max_cars}" />
-	</bean>
-	<!-- 省份、城市、城区 -->
-	<bean id="districtAction" class="com.wuwaikeji.luyou.action.DistrictAction" scope="prototype">
-		<property name="districtService" ref="districtService" />
-	</bean>
-	<bean id="districtService" class="com.wuwaikeji.luyou.service.impl.DistrictServiceImpl" />
-	<!-- 搜索查询 -->
-	<bean id="searchAction" class="com.wuwaikeji.luyou.action.SearchAction" scope="prototype" />
-
-	<bean id="userInfoIndex" class="com.wuwaikeji.luyou.search.index.UserInfoIndex" />
-
-	<!-- 短信发送和验证 -->
-	<bean id="authCodeService" class="com.wuwaikeji.luyou.service.impl.AuthCodeServiceImpl" />
-	<bean id="phoneAuthCodeAction" class="com.wuwaikeji.luyou.action.PhoneAuthCodeAction" scope="prototype">
-		<property name="authCodeService" ref="authCodeService" />
-		<property name="registerService" ref="registerService" />
-	</bean>
-
-	<!-- 朋友圈 -->
-	<bean id="friendTribeService" class="com.wuwaikeji.luyou.service.impl.FriendTribeServiceImpl">
-		<property name="iconUrlPrefix" value="${icon_url}" />
-	</bean>
-
-	<bean id="friendTribeAction" class="com.wuwaikeji.luyou.action.FriendTribeAction" scope="prototype">
-		<property name="friendTribeService" ref="friendTribeService" />
-		<property name="userFriendService" ref="userFriendService" />
-	</bean>
-	<!-- 版本控制 -->
-	<bean id="versionControllerAction" class="com.wuwaikeji.luyou.action.ClientVersionControllerAction" scope="prototype" />
-	<!-- 初始化参数 -->
-	<bean id="initParamsAction" class="com.wuwaikeji.luyou.action.InitParamsAction" scope="prototype">
-		<property name="brandService" ref="brandService" />
-	</bean>
-	<!-- 品牌 -->
-	<bean id="brandService" class="com.wuwaikeji.luyou.service.impl.BrandServiceImpl" />
-	<bean id="brandAction" class="com.wuwaikeji.luyou.action.BrandAction" scope="prototype">
-		<property name="brandService" ref="brandService" />
-	</bean>
-	<bean id="userInviteService" class="com.wuwaikeji.luyou.service.impl.UserInviteImpl"></bean>
-	<bean id="inviteAction" class="com.wuwaikeji.luyou.action.InviteAction" scope="prototype">
-		<property name="iuserInvite" ref="userInviteService" />
-		<property name="userFriendService" ref="userInviteService" />
-	</bean>
-
-	<!-- 违章查询 -->
-	<bean id="wzService" class="com.wuwaikeji.luyou.service.impl.WzServiceImpl" />
-	<bean id="wzQueryAction" class="com.wuwaikeji.luyou.action.WzQueryAction" scope="prototype">
-		<property name="wzService" ref="wzService" />
-	</bean>
-	<!-- 忘记密码 -->
-	<bean id="forgetPwd" class="com.wuwaikeji.luyou.action.ForgetPwdAction" scope="prototype">
-		<property name="authCodeService" ref="authCodeService" />
-		<property name="userInfoService" ref="userInfoService" />
-	</bean>
-	<task:scheduler id="task" pool-size="3" />
-	<!-- task -->
-	<task:scheduled-tasks scheduler="task">
-		<!-- 定时更新索引功能 -->
-		<task:scheduled ref="userInfoIndex" method="createOrUpdateIndex" cron="0 0/1 * * * ?" />
-
-	</task:scheduled-tasks>
+	
 </beans>

@@ -10,6 +10,7 @@ import com.iyoumei.entity.UserRewardRule;
 import com.iyoumei.entity.VipUserRecord;
 import com.iyoumei.entity.constant.UserRewardLogConstant;
 import com.iyoumei.entity.constant.VipUserRecordConstant;
+import com.iyoumei.entity.view.UserCircleReward;
 import com.iyoumei.util.enumcollection.CommonCode;
 import com.wuwaikeji.luyou.common.StringUtil;
 
@@ -32,11 +33,13 @@ public abstract class AbsRewardAlgorithm implements IRewardAlgorithm {
 		UserRelation relation = data.getRelation() ;
 		UserRewardRule rule = data.getRule() ;
 		if(relation==null||rule==null) return rewardLog ;
+		Long amt = getRealRewardAmt(data) ;
+		if(amt.longValue()==0l) return rewardLog ;
 		rewardLog = new UserRewardLog() ;
 		Date date = new Date() ;
 		//DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") ;
 		rewardLog.setInsertTime(date);
-		rewardLog.setRewardAmt(rule.getUnitAmt());
+		rewardLog.setRewardAmt(amt);
 		rewardLog.setRewardStatus(UserRewardLogConstant.STATUS_DO_OK);
 		rewardLog.setRuleId(rule.getRuleId());
 		rewardLog.setSuperId(relation.getSuperId());
@@ -45,5 +48,27 @@ public abstract class AbsRewardAlgorithm implements IRewardAlgorithm {
 		rewardLog.setSuperPosition(relation.getSuperPosition());
 		rewardLog.setUserId(relation.getUserId());
 		return rewardLog ;
+	}
+	
+	protected boolean isLevelEnable(RewardUserData data) {
+		boolean b = false ;
+		UserRelation relation = data.getRelation() ;
+		UserRewardRule rule = data.getRule() ;
+		if(relation.getSuperLevelNum().intValue()>rule.getMaxLevel().intValue()
+				&&rule.getMaxLevel().intValue()>0) b = false ;
+		else b = true ;
+		return b ;
+	}
+	
+	protected Long getRealRewardAmt(RewardUserData data) {
+		Long amt = 0l ;
+		UserCircleReward ucr = data.getCircleReward() ;
+		UserRewardRule rule = data.getRule() ;
+		if(!isLevelEnable(data)) return amt ;
+		if(rule.getLimitMaxAmt()>ucr.getCurrentTotalAmt()+rule.getUnitAmt()) amt = rule.getUnitAmt() ;
+		else if(rule.getLimitMaxAmt()<ucr.getCurrentTotalAmt()+rule.getUnitAmt()
+				&&rule.getLimitMaxAmt()>ucr.getCurrentTotalAmt()) amt = rule.getLimitMaxAmt()-ucr.getCurrentTotalAmt() ;
+		else amt = 0l ;
+		return amt ;
 	}
 }

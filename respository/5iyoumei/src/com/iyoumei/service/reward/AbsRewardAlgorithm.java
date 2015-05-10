@@ -14,6 +14,11 @@ import com.iyoumei.entity.view.UserCircleReward;
 import com.iyoumei.util.enumcollection.CommonCode;
 import com.wuwaikeji.luyou.common.StringUtil;
 
+/**
+ * 奖金处理的抽象类
+ * @author chenhuangyun
+ *
+ */
 public abstract class AbsRewardAlgorithm implements IRewardAlgorithm {
 	
 	public RewardAlgorithmResult calculate(VipUserRecord vipRecord,

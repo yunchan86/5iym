@@ -48,6 +48,10 @@
 	<!-- 登录前签名验证拦截器 -->
 	<bean id="noLoginSignInterceptor" class="com.iyoumei.interceptor.NoLoginSignInterceptor" />
 
-	<bean id="loginAction" class="com.iyoumei.action.LoginAction"></bean>
+	<bean id="loginServiceImpl" class="com.iyoumei.service.impl.LoginServiceImpl"/>
+	
+	<bean id="loginAction" class="com.iyoumei.action.LoginAction">
+		<property name="loginService" ref="loginServiceImpl"/>
+	</bean>
 	
 </beans>

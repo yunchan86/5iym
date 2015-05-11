@@ -1,27 +1,35 @@
 package com.iyoumei.bean;
 
-public class ServiceResultBean<T> {
+import com.iyoumei.util.enumcollection.IResMsg;
 
-	private String code ;
-	private String msg ;
+public class ServiceResultBean<T, M extends IResMsg> {
+
+	private M resMsg ;
 	private T data ;
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public String getMsg() {
-		return msg;
-	}
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
+	private String result;
+	
 	public T getData() {
 		return data;
 	}
+	
 	public void setData(T data) {
 		this.data = data;
+	}
+	
+	public M getResMsg() {
+		return resMsg;
+	}
+	
+	public void setResMsg(M resMsg) {
+		this.resMsg = resMsg;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
 	}
 	
 	

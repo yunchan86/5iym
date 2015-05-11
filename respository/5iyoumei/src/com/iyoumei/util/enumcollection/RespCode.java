@@ -6,7 +6,7 @@ package com.iyoumei.util.enumcollection;
  * @author Jeff
  * 
  */
-public enum RespCode {
+public enum RespCode implements IResMsg {
 
 	/**
 	 * 成功
@@ -59,6 +59,7 @@ public enum RespCode {
 		this.detail = detail;
 	}
 
+	@Override
 	public String getCode() {
 		return code;
 	}
@@ -67,6 +68,7 @@ public enum RespCode {
 		this.code = code;
 	}
 
+	@Override
 	public String getDetail() {
 		return detail;
 	}

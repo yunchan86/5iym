@@ -49,7 +49,7 @@
 			<result>/index.jsp</result>
 		</action>
 		<action name="login" class="loginAction">
-			<result name="success">/index.html</result>
+			<result name="success">/index.jsp</result>
 			<result name="error">/error404.html</result>
 		</action>
 	</package>

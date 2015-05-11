@@ -1,9 +1,11 @@
 package com.iyoumei.action;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.struts2.ServletActionContext;
 
 import com.iyoumei.bean.ServiceResultBean;
 import com.iyoumei.entity.UserInfo;
@@ -23,6 +25,10 @@ public class LoginAction extends ParentAction  implements ModelDriven<LoginMd> {
 	@Override
 	public String execute() {
 		ServiceResultBean<UserInfo, IResMsg> _result = loginService.selectUserInfo(md) ;
+		
+		HttpServletRequest _request = ServletActionContext.getRequest();
+		String _userName = _result.getData() == null ? "" : _result.getData().getUserName() ;
+		_request.setAttribute("userName", _userName);
 		
 		return _result.getResult() ;
 	}

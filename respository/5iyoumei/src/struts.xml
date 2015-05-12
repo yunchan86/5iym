@@ -50,7 +50,7 @@
 		</action>
 		<action name="login" class="loginAction">
 			<result name="success">/index.jsp</result>
-			<result name="error">/error404.html</result>
+			<result name="error">/login.jsp</result>
 		</action>
 	</package>
 </struts>

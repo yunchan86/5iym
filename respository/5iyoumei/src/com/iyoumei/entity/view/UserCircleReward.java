@@ -8,8 +8,18 @@ public class UserCircleReward {
     
     private Long currentTotalAmt;
     
-    private Long leftTotalNum ;
-    private Long rightTotalNum ;
+    private Integer leftTotalNum ;
+    private Integer rightTotalNum ;
+    
+    public UserCircleReward(){}
+    public UserCircleReward(Integer ruleId,Long userId,Long currentTotalAmt
+    		,Integer leftTotalNum,Integer rightTotalNum) {
+    	this.ruleId = ruleId ;
+    	this.userId = userId ;
+    	this.currentTotalAmt = currentTotalAmt ;
+    	this.leftTotalNum = leftTotalNum ;
+    	this.rightTotalNum = rightTotalNum ;
+    }
 
 	public Integer getRuleId() {
 		return ruleId;
@@ -34,22 +44,17 @@ public class UserCircleReward {
 	public void setCurrentTotalAmt(Long currentTotalAmt) {
 		this.currentTotalAmt = currentTotalAmt;
 	}
-
-	public Long getLeftTotalNum() {
+	public Integer getLeftTotalNum() {
 		return leftTotalNum;
 	}
-
-	public void setLeftTotalNum(Long leftTotalNum) {
+	public void setLeftTotalNum(Integer leftTotalNum) {
 		this.leftTotalNum = leftTotalNum;
 	}
-
-	public Long getRightTotalNum() {
+	public Integer getRightTotalNum() {
 		return rightTotalNum;
 	}
-
-	public void setRightTotalNum(Long rightTotalNum) {
+	public void setRightTotalNum(Integer rightTotalNum) {
 		this.rightTotalNum = rightTotalNum;
 	}
-    
     
 }

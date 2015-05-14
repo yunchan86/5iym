@@ -1,5 +1,6 @@
 package com.iyoumei.bean;
 
+import com.iyoumei.util.constant.Constant;
 import com.iyoumei.util.enumcollection.IResMsg;
 
 public class ServiceResultBean<T, M extends IResMsg> {
@@ -32,5 +33,11 @@ public class ServiceResultBean<T, M extends IResMsg> {
 		this.result = result;
 	}
 	
+	public boolean isSucc(){
+		return this.result.equals(Constant.SUCC) ;
+	}
 	
+	public boolean isError(){
+		return this.result.equals(Constant.ERROR) ;
+	}
 }

@@ -10,6 +10,7 @@ import com.iyoumei.entity.UserInfoExample;
 import com.iyoumei.mapper.UserInfoMapper;
 import com.iyoumei.modeldriver.LoginMd;
 import com.iyoumei.service.ILoginService;
+import com.iyoumei.util.constant.Constant;
 import com.iyoumei.util.enumcollection.IResMsg;
 import com.iyoumei.util.enumcollection.RespCode;
 
@@ -29,12 +30,12 @@ public class LoginServiceImpl implements ILoginService {
 		List<UserInfo> _userInfos = userInfoMapper.selectByExample(_userInfoExample) ;
 		UserInfo _userInfo = null ;
 		RespCode _code = RespCode.SUCCESS ;
-		String _resultStr = "error" ;
+		String _resultStr = Constant.ERROR ;
 		if (_userInfos == null || _userInfos.isEmpty()) {
 			_code = RespCode.USERNAME_OR_PWD_ERROR ;
 		}else {
 			_userInfo = _userInfos.get(0) ;
-			_resultStr = "success" ;
+			_resultStr = Constant.SUCC ;
 		}
 		
 		ServiceResultBean<UserInfo, IResMsg> _result = new ServiceResultBean<UserInfo, IResMsg>() ;

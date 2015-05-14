@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
         <title>登录</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -26,7 +26,7 @@
 				<div class="controls">
 					<div class="main_input_box">
 						<span class="add-on bg_lg"><i class="icon-user"></i></span><input
-							type="text" placeholder="userName" name="userName" />
+							type="text"  placeholder="userName" name="userName" value='<s:property value="#request.userName"/>' />
 					</div>
 				</div>
 			</div>
@@ -38,6 +38,7 @@
 					</div>
 				</div>
 			</div>
+			<div style="color:red; text-align:center;"><s:property value="#request.resultDetail"/></div>
 			<div class="form-actions">
 				<span class="pull-left"><a href="#"
 					class="flip-link btn btn-info" id="to-recover">Lost password?</a></span> <span

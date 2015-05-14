@@ -24,13 +24,16 @@ public class LoginAction extends ParentAction  implements ModelDriven<LoginMd> {
 
 	@Override
 	public String execute() {
-		ServiceResultBean<UserInfo, IResMsg> _result = loginService.selectUserInfo(md) ;
+		ServiceResultBean<UserInfo, IResMsg> _resultBean = loginService.selectUserInfo(md) ;
 		
 		HttpServletRequest _request = ServletActionContext.getRequest();
-		String _userName = _result.getData() == null ? "" : _result.getData().getUserName() ;
-		_request.setAttribute("userName", _userName);
+		UserInfo _userInfo = _resultBean.getData() ;
 		
-		return _result.getResult() ;
+		String _userName = _userInfo == null ? md.getUserName() : _userInfo.getUserName() ;
+		_request.setAttribute("userName", _userName);
+		_request.setAttribute("resultDetail", _resultBean.getResMsg().getDetail());
+		
+		return _resultBean.getResult() ;
 	}
 
 	

@@ -11,8 +11,8 @@ import com.iyoumei.entity.VipUserRecord;
 import com.iyoumei.entity.constant.UserRewardLogConstant;
 import com.iyoumei.entity.constant.VipUserRecordConstant;
 import com.iyoumei.entity.view.UserCircleReward;
+import com.iyoumei.util.StringUtil;
 import com.iyoumei.util.enumcollection.CommonCode;
-import com.wuwaikeji.luyou.common.StringUtil;
 
 /**
  * 奖金处理的抽象类

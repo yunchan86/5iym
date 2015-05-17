@@ -1,9 +1,11 @@
 package com.iyoumei.bean;
 
+import com.iyoumei.util.enumcollection.CommonCode;
+
 public class BasicCodeMsgBean {
 
-	private String code ;
-	private String msg ;
+	private String code = CommonCode.DEFAULT.getCode() ;
+	private String msg = CommonCode.DEFAULT.getMsg() ;
 	
 	public BasicCodeMsgBean(){}
 	public BasicCodeMsgBean(String code,String msg) {

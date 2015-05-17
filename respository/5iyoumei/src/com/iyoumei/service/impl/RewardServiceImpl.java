@@ -17,7 +17,6 @@ import com.iyoumei.entity.RewardRule;
 import com.iyoumei.entity.RewardRuleExample;
 import com.iyoumei.entity.UserRelationExample;
 import com.iyoumei.entity.UserRewardLog;
-import com.iyoumei.entity.UserRewardLogExample;
 import com.iyoumei.entity.UserRewardRule;
 import com.iyoumei.entity.UserRewardRuleExample;
 import com.iyoumei.entity.constant.PositionValueConstant;
@@ -103,13 +102,14 @@ public class RewardServiceImpl implements IRewardService {
 		int right = relationMapper.countByExample(relationExample) ;
 		Long currentTotalAmt = 0l ;
 		//TODO
-		UserRewardLogExample rewardLogExample = new UserRewardLogExample() ;
+		currentTotalAmt = this.rewardLogMapper.sumBySuperId(data.getRelation().getSuperId(), UserRewardLogConstant.STATUS_DO_OK) ;
+/*		UserRewardLogExample rewardLogExample = new UserRewardLogExample() ;
 		UserRewardLogExample.Criteria rewardLogCriteria = rewardLogExample.createCriteria() ;
 		rewardLogCriteria.andRewardStatusEqualTo(UserRewardLogConstant.STATUS_DO_OK) ;
 		rewardLogCriteria.andSuperIdEqualTo(data.getRelation().getSuperId()) ;
 		//rewardLogCriteria.andInsertTimeBetween(value1, value2) ;
 		//this.rewardLogMapper.
-		circleReward = new UserCircleReward(rule.getRuleId(),data.getRelation().getSuperId()
+*/		circleReward = new UserCircleReward(rule.getRuleId(),data.getRelation().getSuperId()
 				,currentTotalAmt,left,right) ;
 		logger.debug("[super_id="+data.getRelation().getSuperId()+",left_num="+left+",right_num="+right+",current_amt="+currentTotalAmt+"]current max num.");
 		return circleReward ;
